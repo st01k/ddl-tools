@@ -12,7 +12,7 @@
   </form>
 
   <p id="data"></p>
-  <ol id="data-list"></l>
+  <ul id="data-list"></l>
 
   <script>
     const electron = require('electron')
@@ -28,11 +28,14 @@
     ipcRenderer.on('file:handler', (event, handler) => {
       document.querySelector('#data').innerHTML = `total records: ${handler.records.length}`
 
-      let ol = document.querySelector('#data-list')
+      let ul = document.querySelector('#data-list')
       for (let record of handler.records) {
         let li = document.createElement('li')
-        li.appendChild(document.createTextNode(record.id + ' ' + record.type + ' ' + record.raw))
-        ol.appendChild(li)
+        li.appendChild(document.createTextNode(
+          // record.id + ' ' + record.type + ' ' + record.raw
+          `ID: ${record.id} | TYPE: ${record.type} | DATA: ${record.raw}`
+        ))
+        ul.appendChild(li)
       }
     })
   </script>
