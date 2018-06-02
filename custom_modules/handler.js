@@ -39,30 +39,60 @@ module.exports = {
 
   buildRecords: function(lines) {
     let cnt = 0
+    let type = ''
     let records = []
     let raw_data = []
 
     for (const line of lines) {
-      if (line === '\r') {
-        cnt++
+      // switch(line.charAt(0)) {
+      //   case '@':
+      //     // file info
+      //     // console.log('file info')
+      //     type = 'file info'
+      //     break
+      //   case '*':
+      //     // comment
+      //     // console.log('comment')
+      //     type = 'comment'
+      //     break
+      //   case '~':
+      //     // error/message
+      //     // console.log('error/message')
+      //     type = 'err/msg'
+      //     break
+      //   default: 
+      //     type = 'record data'
+      //     break
+      // }
 
-        records.push({
-          id: cnt, 
-          type: 'test type', 
-          raw: raw_data, 
-          data: {},
-          comment: {}
-        })
+      if (line.match(/^\s*$/)) {
+        // empty line
+        // console.log('empty line')
+        cnt++
+        let rec = this.buildRecord(cnt, raw_data)
+        records.push(rec)
 
         raw_data = []
-      } 
+      }
       else {
-        console.log(line)
+        // record start
+        // console.log('record line')
         raw_data.push(line)
       }
     }
 
     return records
+  },
+
+  buildRecord(id, raw) {
+    let record = {
+      id: id,
+      type: 'test',
+      raw: raw,
+      data: {},
+      comment: {}
+    }
+    return record
   },
 
   parse: function() {
