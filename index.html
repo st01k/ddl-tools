@@ -1,0 +1,39 @@
+<head>
+  <link rel="stylesheet" href="./main.css">
+</head>
+<body>
+  <h1>DDL Tools</h1>
+  <form action="">
+    <div>
+      <label>Select a file</label>
+      <input type="file" accept=".DDL">
+    </div>
+    <button type="submit">Import</button>
+  </form>
+
+  <p id="data"></p>
+  <ol id="data-list"></l>
+
+  <script>
+    const electron = require('electron')
+    const { ipcRenderer } = electron
+
+    document.querySelector('form').addEventListener('submit', (event) => {
+      event.preventDefault()
+
+      const { path } = document.querySelector('input').files[0]
+      ipcRenderer.send('file:import', path)
+    })
+
+    ipcRenderer.on('file:handler', (event, handler) => {
+      document.querySelector('#data').innerHTML = `total records: ${handler.records.length}`
+
+      let ol = document.querySelector('#data-list')
+      for (let record of handler.records) {
+        let li = document.createElement('li')
+        li.appendChild(document.createTextNode(record.raw))
+        ol.appendChild(li)
+      }
+    })
+  </script>
+</body>
