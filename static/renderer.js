@@ -1,12 +1,6 @@
 const electron = require('electron')
 const { ipcRenderer } = electron
 
-// sidenav
-document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.sidenav');
-  var instances = M.Sidenav.init(elems);
-});
-
 // modals
 document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.modal');
@@ -15,13 +9,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // import submit
 document.getElementById("import-submit").addEventListener("click", (event => {
+  // document.getElementById('content').innerHTML = ''
   const { path } = document.getElementById('form-import-file').files[0]
   ipcRenderer.send('file:import', path)
 }))
 
+// record list collapse
 document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.collapsible');
-  var instances = M.Collapsible.init(elems);
+  var elems = document.querySelectorAll('.collapsible.expandable');
+  var instances = M.Collapsible.init(elems, {
+    accordion: false
+  });
 });
 
 // ------------------------------------------------------------------------ IPC
@@ -37,7 +35,7 @@ ipcRenderer.on('file:handler', (event, handler) => {
     head.innerHTML = `ID: ${record.id} <br> TYPE: ${record.type}`
     
     let body = document.createElement('div')
-    body.classList.add('collapsible-header', 'grey', 'darken-3', 'white-text')
+    body.classList.add('collapsible-body', 'grey', 'darken-3', 'white-text', 'truncate')
     body.innerHTML = `<span><pre>${record.raw}</pre></span>`
     // li.appendChild(document.createTextNode(
     //   // record.id + ' ' + record.type + ' ' + record.raw

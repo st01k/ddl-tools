@@ -27,7 +27,11 @@ module.exports = {
         // console.log('empty line')
         cnt++
         let rec = this.buildRecord(cnt, raw_data)
-        if (rec) records.push(rec)
+        if (rec) {
+          if (rec.type !== 'empty') {
+            records.push(rec)
+          }
+        }
 
         raw_data = []
       }
@@ -37,6 +41,13 @@ module.exports = {
         raw_data.push(line)
       }
     }
+
+    // for (let i = 0; i <= records.length - 1; i++) {
+    //   if (records[i].type == 'empty') {
+    //     console.log(`removing record ${records[i].id} [${records[i].type}]`)
+    //     records.splice(i, 1)
+    //   }
+    // }
 
     return records
   },

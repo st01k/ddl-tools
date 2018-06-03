@@ -11,7 +11,7 @@
     <nav>
       <div class="nav-wrapper">
         <a href="#!" class="brand-logo blue-text text-lighten-2">DDL Tools</a>
-        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <a href="#" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
           <li><a class="waves-effect waves-light btn modal-trigger blue lighten-2" href="#modal-import">Import</a></li>
           <li><a class="waves-effect waves-light btn modal-trigger blue lighten-2" href="#modal-export">Export</a></li>
@@ -19,15 +19,8 @@
       </div>
     </nav>
   </div>
-  <ul class="sidenav">
-    <li><a href="sass.html">Sass</a></li>
-    <li><a href="badges.html">Components</a></li>
-    <li><a href="collapsible.html">Javascript</a></li>
-    <li><a href="mobile.html">Mobile</a></li>
-  </ul>
   
   <div id="modal-import" class="modal grey darken-4">
-
     <div class="modal-content">
       <form>
         <div>
@@ -36,8 +29,7 @@
               <div class="btn blue lighten-2">
                 <span>Select a file to import</span>
                 <input id="form-import-file" type="file" accept=".DDL"/>
-              </div>
-              
+              </div>              
               <div class="file-path-wrapper">
                 <input class="file-path validate white-text" type="text" placeholder="Selected file" />
               </div>
@@ -49,7 +41,6 @@
     <div class="modal-footer grey darken-4">
       <a id="import-submit" href="#!" class="modal-close waves-effect waves-light btn-flat blue lighten-2">Import</a>
     </div>
-
   </div>
 
   <div id="modal-export" class="modal grey darken-4">
@@ -64,10 +55,35 @@
     </div>
   </div>
 
-  <div id="content" class="row container">
-    <h1>Parsed Data</h1>
-    <p id="data"></p>
-    <ul id="data-list"></l>
+  <div class="row">
+    <div id="sidebar" class="col s2 grey darken-3">  
+      <form action="#">
+        <p>
+          <label>
+            <input type="checkbox" checked="checked"/>
+            <span>Show Comments</span>
+          </label>
+        </p>
+        <p>
+          <label>
+            <input type="checkbox" checked="checked" />
+            <span>Show Errors</span>
+          </label>
+        </p>
+      </form>  
+    </div>
+
+    <div class="col s9">
+      <div id="file-info" class="row">
+        <p id="data"></p>
+      </div>
+      <div id="content" class="row">
+        <div class="col s1"></div>
+        <div class="col s11">
+          <ul id="data-list" class="collapsible expandable"></ul>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script> -->
