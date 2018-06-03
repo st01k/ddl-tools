@@ -1,4 +1,5 @@
 <head>
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
   <link rel="stylesheet" href="./main.css">
 </head>
 <body>
@@ -14,29 +15,8 @@
   <p id="data"></p>
   <ul id="data-list"></l>
 
-  <script>
-    const electron = require('electron')
-    const { ipcRenderer } = electron
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  <script src="semantic/dist/semantic.min.js"></script>
 
-    document.querySelector('form').addEventListener('submit', (event) => {
-      event.preventDefault()
-
-      const { path } = document.querySelector('input').files[0]
-      ipcRenderer.send('file:import', path)
-    })
-
-    ipcRenderer.on('file:handler', (event, handler) => {
-      document.querySelector('#data').innerHTML = `total records: ${handler.records.length}`
-
-      let ul = document.querySelector('#data-list')
-      for (let record of handler.records) {
-        let li = document.createElement('li')
-        li.appendChild(document.createTextNode(
-          // record.id + ' ' + record.type + ' ' + record.raw
-          `ID: ${record.id} | TYPE: ${record.type} | DATA: ${record.raw}`
-        ))
-        ul.appendChild(li)
-      }
-    })
-  </script>
+  <script>require('./renderer.js')</script>
 </body>

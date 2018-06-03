@@ -42,28 +42,31 @@ module.exports = {
   },
 
   buildRecord(id, raw) {
-    let type = 'test'
+    let type = 'empty'
+    // regex - everything in double quotes: (["'])(?:\\.|[^\\])*?\1
 
-    // switch(line.charAt(0)) {
-    //   case '@':
-    //     // file info
-    //     // console.log('file info')
-    //     type = 'file info'
-    //     break
-    //   case '*':
-    //     // comment
-    //     // console.log('comment')
-    //     type = 'comment'
-    //     break
-    //   case '~':
-    //     // error/message
-    //     // console.log('error/message')
-    //     type = 'err/msg'
-    //     break
-    //   default: 
-    //     type = 'record data'
-    //     break
-    // }
+    for (let i = 0; i <= raw.length - 1; i++) {
+      switch(raw[i].charAt(0)) {
+        case '@':
+          // file info
+          // console.log('file info')
+          type = 'info'
+          break
+        case '*':
+          // comment
+          // console.log('comment')
+          type = 'comment'
+          break
+        case '~':
+          // error/message
+          // console.log('error/message')
+          type = 'err/msg'
+          break
+        default: 
+          type = 'record data'
+          break
+      }
+    }
 
     let record = {
       id: id,
