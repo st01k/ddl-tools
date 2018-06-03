@@ -24,43 +24,41 @@
     <li><a href="mobile.html">Mobile</a></li>
   </ul>
   
-  <div id="modal-import" class="modal orange lighten-3">
+  <div id="modal-import" class="modal grey darken-4">
 
     <div class="modal-content">
       <form>
         <div>
-          <div class = "row">
-            <label>Select a file to import</label>
-            <div class = "file-field input-field">
-              <div class = "btn">
-                <span>Browse</span>
-                <input id="form-import-file" type = "file" accept=".DDL"/>
+          <div class="row">
+            <div class="file-field input-field">
+              <div class="btn blue lighten-2">
+                <span>Select a file to import</span>
+                <input id="form-import-file" type="file" accept=".DDL"/>
               </div>
               
-              <div class = "file-path-wrapper">
-                <input class = "file-path validate" type = "text"
-                    placeholder = "Selected file" />
+              <div class="file-path-wrapper">
+                <input class="file-path validate white-text" type="text" placeholder="Selected file" />
               </div>
             </div>
           </div>
         </div>
       </form>
     </div>
-    <div class="modal-footer grey darken-3">
+    <div class="modal-footer grey darken-4">
       <a id="import-submit" href="#!" class="modal-close waves-effect waves-light btn-flat blue lighten-2">Import</a>
     </div>
 
   </div>
 
-  <div id="modal-export" class="modal">
+  <div id="modal-export" class="modal grey darken-4">
     <div class="modal-content">
       <div class="input-field">
-        <input id="output-file" type="text" class="validate">
-        <label for="output-file">Output File</label>
+        <input id="output-file" type="text" class="validate white-text">
+        <label for="output-file">Please enter a name for your generated file</label>
       </div>
     </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-light btn-flat">Generate</a>
+    <div class="modal-footer grey darken-4">
+      <a href="#!" class="modal-close waves-effect waves-light btn-flat blue lighten-2">Generate</a>
     </div>
   </div>
 
