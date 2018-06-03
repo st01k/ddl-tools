@@ -1,0 +1,76 @@
+<head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+  <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo blue-text text-lighten-2">DDL Tools</a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a class="waves-effect waves-light btn modal-trigger blue lighten-2" href="#modal-import">Import</a></li>
+        <li><a class="waves-effect waves-light btn modal-trigger blue lighten-2" href="#modal-export">Export</a></li>
+      </ul>
+    </div>
+  </nav>
+  <ul class="sidenav">
+    <li><a href="sass.html">Sass</a></li>
+    <li><a href="badges.html">Components</a></li>
+    <li><a href="collapsible.html">Javascript</a></li>
+    <li><a href="mobile.html">Mobile</a></li>
+  </ul>
+  
+  <div id="modal-import" class="modal orange lighten-3">
+
+    <div class="modal-content">
+      <form>
+        <div>
+          <div class = "row">
+            <label>Select a file to import</label>
+            <div class = "file-field input-field">
+              <div class = "btn">
+                <span>Browse</span>
+                <input id="form-import-file" type = "file" accept=".DDL"/>
+              </div>
+              
+              <div class = "file-path-wrapper">
+                <input class = "file-path validate" type = "text"
+                    placeholder = "Selected file" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer grey darken-3">
+      <a id="import-submit" href="#!" class="modal-close waves-effect waves-light btn-flat blue lighten-2">Import</a>
+    </div>
+
+  </div>
+
+  <div id="modal-export" class="modal">
+    <div class="modal-content">
+      <div class="input-field">
+        <input id="output-file" type="text" class="validate">
+        <label for="output-file">Output File</label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-light btn-flat">Generate</a>
+    </div>
+  </div>
+
+  <div id="content" class="row container">
+    <h1>Parsed Data</h1>
+    <p id="data"></p>
+    <ul id="data-list"></l>
+  </div>
+
+  <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script> -->
+  <script type="text/javascript" src="js/materialize.min.js"></script>
+  <script>require('./renderer.js')</script>
+</body>

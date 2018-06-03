@@ -6,16 +6,15 @@ const { app, BrowserWindow, ipcMain, Menu } = electron
 let mainWindow
 
 app.on('ready', () => {
-  mainWindow = new BrowserWindow({
-    width: 800, 
-    height: 600
-  })
+  mainWindow = new BrowserWindow({})
 
-  mainWindow.loadURL(`file://${__dirname}/index.html`)
+  mainWindow.loadURL(`file://${__dirname}/static/index.html`)
   // mainWindow.loadFile('index.html')
 
-  const mainMenu = Menu.buildFromTemplate(menuTemplate)
-  Menu.setApplicationMenu(mainMenu)
+  mainWindow.maximize()
+
+  // const mainMenu = Menu.buildFromTemplate(menuTemplate)
+  // Menu.setApplicationMenu(mainMenu)
 })
 
 app.on('window-all-closed', function () {
