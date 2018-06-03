@@ -24,7 +24,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // ------------------------------------------------------------------------ IPC
 ipcRenderer.on('file:handler', (event, handler) => {
-  document.querySelector('#data').innerHTML = `total records: ${handler.records.length}`
+  document.querySelector('#total-records').innerHTML = `${handler.records.length}`
+  document.querySelector('#filename').innerHTML = `${handler.file}`
 
   let ul = document.querySelector('#data-list')
   for (let record of handler.records) {
@@ -32,7 +33,7 @@ ipcRenderer.on('file:handler', (event, handler) => {
     
     let head = document.createElement('div')
     head.classList.add('collapsible-header', 'grey', 'darken-2', 'white-text')
-    head.innerHTML = `ID: ${record.id} <br> TYPE: ${record.type}`
+    head.innerHTML = `${record.data.keyword} ${record.data.network} ${record.data.name} ${record.data.description}<br> TYPE: ${record.type}`
     
     let body = document.createElement('div')
     body.classList.add('collapsible-body', 'grey', 'darken-3', 'white-text', 'truncate')

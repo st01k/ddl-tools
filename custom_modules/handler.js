@@ -54,6 +54,10 @@ module.exports = {
 
   buildRecord(id, raw) {
     let type = 'empty'
+    let keyword
+    let network
+    let name
+    let description
     // regex - everything in double quotes: (["'])(?:\\.|[^\\])*?\1
 
     for (let i = 0; i <= raw.length - 1; i++) {
@@ -77,15 +81,38 @@ module.exports = {
           type = 'record data'
           break
       }
+
+      if (i === 0) {
+        let el = raw[i].split(',')
+        let temp = el[0].split(' ')
+        keyword = temp[0]
+        network = temp[1]
+        name = el[1]
+        description = el[2]
+        // let keywordParams = raw[i]
+        // console.log('\n')
+        // console.log(el)
+        // console.log(keyword)
+        // console.log(keywordParams)
+      }
     }
 
     let record = {
       id: id,
       type: type,
       raw: raw,
-      data: {},
-      comment: {}
+      data: {
+        keyword: keyword,
+        network: network,
+        name: name,
+        description: description,
+        params: [],
+        subkeywords: [],
+        comment: {},
+        errors: []
+      }
     }
+
     return record
   },
 
