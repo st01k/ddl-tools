@@ -61,39 +61,41 @@ module.exports = {
     // regex - everything in double quotes: (["'])(?:\\.|[^\\])*?\1
 
     for (let i = 0; i <= raw.length - 1; i++) {
+
       switch(raw[i].charAt(0)) {
         case '@':
-          // file info
-          // console.log('file info')
-          type = 'info'
+          
           break
         case '*':
-          // comment
-          // console.log('comment')
-          type = 'comment'
+          
           break
         case '~':
-          // error/message
-          // console.log('error/message')
-          type = 'err/msg'
+          
           break
         default: 
-          type = 'record data'
+          
           break
       }
-
+      
       if (i === 0) {
         let el = raw[i].split(',')
         let temp = el[0].split(' ')
-        keyword = temp[0]
-        network = temp[1]
-        name = el[1]
-        description = el[2]
-        // let keywordParams = raw[i]
-        // console.log('\n')
-        // console.log(el)
-        // console.log(keyword)
-        // console.log(keywordParams)
+
+        switch(raw[i].charAt(0)) {
+          case '*':
+            type = 'info'
+            break
+          case '~':
+            type = 'err/msg'
+            break
+          default: 
+            type = 'record data'
+            keyword = temp[0]
+            network = temp[1]
+            name = el[1]
+            description = el[2]
+            break
+        }
       }
     }
 
