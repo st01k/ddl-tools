@@ -24,8 +24,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // ------------------------------------------------------------------------ IPC
 ipcRenderer.on('file:handler', (event, handler) => {
-  document.querySelector('#total-records').innerHTML = `${handler.records.length}`
-  document.querySelector('#filename').innerHTML = `${handler.file}`
+  clearContent()
+  document.getElementById('total-records').innerHTML = `${handler.records.length}`
+  document.getElementById('filename').innerHTML = `${handler.file}`
 
   let ul = document.querySelector('#data-list')
   for (let record of handler.records) {
@@ -47,3 +48,9 @@ ipcRenderer.on('file:handler', (event, handler) => {
     ul.appendChild(li)
   }
 })
+
+function clearContent() {
+  document.getElementById('filename').innerHTML = ''
+  document.getElementById('total-records').innerHTML = ''
+  document.getElementById('data-list').innerHTML = ''
+}

@@ -13,10 +13,11 @@ nav .brand-logo {
 
 #sidebar {
   height: 100%;
+  position: fixed;
 }
 
 #content {
-  
+  padding-left: 200px;
 }
 
 /* .modal {
