@@ -24,7 +24,6 @@ module.exports = {
     for (const line of lines) {
       if (line.match(/^\s*$/)) {
         // empty line
-        // console.log('empty line')
         cnt++
         let rec = this.buildRecord(cnt, raw_data)
         if (rec) {
@@ -37,7 +36,6 @@ module.exports = {
       }
       else {
         // record start
-        // console.log('record line')
         raw_data.push(line)
       }
     }
@@ -58,13 +56,12 @@ module.exports = {
     let network
     let name
     let description
-    // regex - everything in double quotes: (["'])(?:\\.|[^\\])*?\1
 
     for (let i = 0; i <= raw.length - 1; i++) {
 
       switch(raw[i].charAt(0)) {
         case '@':
-          
+          type = 'header'
           break
         case '*':
           
@@ -77,6 +74,14 @@ module.exports = {
           break
       }
       
+      // regex - everything in double quotes: (["'])(?:\\.|[^\\])*?\1
+      let params = raw[i].match(/(["'])(?:\\.|[^\\])*?\1/g)
+      console.log(`parameters: ${params}`)
+      for (param in params) {
+        let str = param.substr(1)
+        console.log(`param: ${str}`)
+      }
+
       if (i === 0) {
         let el = raw[i].split(',')
         let temp = el[0].split(' ')
@@ -109,7 +114,7 @@ module.exports = {
         name: name,
         description: description,
         params: [],
-        subkeywords: [],
+        subKeywords: [],
         comment: {},
         errors: []
       }

@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // import submit
 document.getElementById("import-submit").addEventListener("click", (event => {
-  // document.getElementById('content').innerHTML = ''
   const { path } = document.getElementById('form-import-file').files[0]
+  M.toast({ html: 'parsing DDL'})
   ipcRenderer.send('file:import', path)
 }))
 
