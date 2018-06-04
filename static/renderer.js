@@ -14,6 +14,11 @@ document.getElementById("import-submit").addEventListener("click", (event => {
   ipcRenderer.send('file:import', path)
 }))
 
+// export submit
+document.getElementById("export-submit").addEventListener("click", (event => {
+  M.toast({ html: 'generating PSV'})
+}))
+
 // record list collapse
 document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.collapsible.expandable');
