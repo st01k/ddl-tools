@@ -30,28 +30,30 @@ document.addEventListener('DOMContentLoaded', function() {
 // ------------------------------------------------------------------------ IPC
 ipcRenderer.on('file:handler', (event, handler) => {
   clearContent()
-  document.getElementById('total-records').innerHTML = `${handler.records.length}`
+  
+  document.getElementById('total-records').innerHTML = `Total Records: ${handler.records.length}`
   document.getElementById('filename').innerHTML = `${handler.file}`
 
-  let ul = document.querySelector('#data-list')
+  let div = document.querySelector('#data-list')
+  let ul = document.createElement('ul')
+  ul.classList.add('collapsible', 'expandable')
+  
   for (let record of handler.records) {
     let li = document.createElement('li')
-    
     let head = document.createElement('div')
+    let body = document.createElement('div')
+    
     head.classList.add('collapsible-header', 'grey', 'darken-2', 'white-text')
     head.innerHTML = `${record.data.keyword} ${record.data.network} ${record.data.name} ${record.data.description}<br> TYPE: ${record.type}`
     
-    let body = document.createElement('div')
     body.classList.add('collapsible-body', 'grey', 'darken-3', 'white-text', 'truncate')
     body.innerHTML = `<span><pre>${record.raw}</pre></span>`
-    // li.appendChild(document.createTextNode(
-    //   // record.id + ' ' + record.type + ' ' + record.raw
-    //   `ID: ${record.id} | TYPE: ${record.type} | DATA: ${record.raw}`
-    // ))
+
     li.appendChild(head)
     li.appendChild(body)
     ul.appendChild(li)
   }
+  div.appendChild(ul)
 })
 
 function clearContent() {
