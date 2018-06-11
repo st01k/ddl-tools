@@ -130,14 +130,13 @@ module.exports = {
   },
 
   export: function(data) {
-    console.log('exporting')
     let tempDir = this.path.split('/')
     let file = tempDir.pop().split('.')[0] + '.csv'
     let saveDir = tempDir.join('/') + '/' + file
 
     fse.writeFile(saveDir, data, function(err) {
       if(err) return console.log(err)
-      
+
       console.log(`exported file saved to ${saveDir}`)
     });
 

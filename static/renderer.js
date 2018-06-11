@@ -65,7 +65,7 @@ ipcRenderer.on('file:handler', (event, handler) => {
 })
 
 ipcRenderer.on('file:exported', (event, data) => {
-  var toastHTML = `<span>generating ${data}</span><button class="btn-flat toast-action">SHOW</button>`
+  var toastHTML = `<span>exported ${data}</span><button class="btn-flat toast-action">SHOW</button>`
   //TODO hook up open directory of new file
   M.toast({html: toastHTML});
 })
