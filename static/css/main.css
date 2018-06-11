@@ -11,13 +11,23 @@ nav .brand-logo {
   padding-left: 10px;
 }
 
-#sidebar {
-  height: 100%;
-  position: fixed;
+#side-bar {
+  /* min-height: 100vh; */
+  /* position: fixed; */
 }
 
-#content {
-  padding-left: 200px;
+#main-content {
+  /* padding-left: 300px; */
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 100vh;
+}
+
+#landing {
+  
 }
 
 /* .modal {
