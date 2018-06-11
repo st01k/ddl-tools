@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
 document.getElementById("import-submit").addEventListener("click", (event => {
   const { path } = document.getElementById('form-import-file').files[0]
   
+  clearContent()
   M.toast({ html: 'importing data'})
 
   setTimeout(() => {
@@ -30,13 +31,7 @@ document.getElementById("export-submit").addEventListener("click", (event => {
   
   let pathAry = handler_data.file.split('/')
   let fileName = pathAry[pathAry.length - 1]
-  let newName = fileName.split('.')[0] + '.csv'
-
-  const outputFileInput = document.getElementById('output-file')
-  if (!outputFileInput.getAttribute('value')) outputFileInput.setAttribute('value', newName)
-  console.log(outputFileInput.getAttribute('value'))
-  
-  
+  let newName = fileName.split('.')[0] + '.csv'  
 
   var toastHTML = `<span>generating ${newName}</span><button class="btn-flat toast-action">OPEN</button>`
   // open directory of new file
@@ -61,8 +56,6 @@ function addListListener() {
 // ------------------------------------------------------------------------ IPC
 ipcRenderer.on('file:handler', (event, handler) => {
   handler_data = handler
-  
-  clearContent()
   renderFileInfo()
 
   // let div = document.querySelector('#main-content')
@@ -84,7 +77,6 @@ function clearContent() {
   document.getElementById('data-list').innerHTML = ''
   document.getElementById('file-name').innerHTML = ''
   document.getElementById('total-records').innerHTML = ''
-  document.getElementById('output-file').setAttribute('value', '')
   // document.getElementById('main-content').innerHTML = ''
 }
 
