@@ -12,8 +12,12 @@ document.addEventListener('DOMContentLoaded', function() {
 // import submit
 document.getElementById("import-submit").addEventListener("click", (event => {
   const { path } = document.getElementById('form-import-file').files[0]
-  M.toast({ html: 'data file imported'})
-  ipcRenderer.send('file:import', path)
+  
+  setTimeout(() => {
+    ipcRenderer.send('file:import', path)
+  }, 1500)
+  
+  M.toast({ html: 'importing data file'})
 }))
 
 // export submit
@@ -23,7 +27,7 @@ document.getElementById("export-submit").addEventListener("click", (event => {
     //TODO clear export input
     return
   }
-  M.toast({ html: 'generating PSV'})
+  M.toast({ html: 'generating CS-PSV'})
 }))
 
 function addListListener() {

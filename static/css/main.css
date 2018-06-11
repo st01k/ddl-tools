@@ -41,6 +41,17 @@ nav .nav-wrapper {
   background-color: #2f2f33 !important;
 }
 
+#toast-container {
+  background-color: #64b5f6;
+  top: auto !important;
+  right: auto !important;
+  bottom: 2%;
+  left:50px;
+  border-radius: 5px;
+  width:250px;
+  text-align: center;
+}
+
 /* dark black #101010 */
 /* ------------------------------------------------------------------- colors */
 /* #85bcfa */
