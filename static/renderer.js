@@ -32,18 +32,11 @@ document.getElementById("export-submit").addEventListener("click", (event => {
   ipcRenderer.send('file:export', handler_data)
 }))
 
-function addListListener() {
+function initCollapse() {
   // record list collapse
-  document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.collapsible.expandable');
-    var instances = M.Collapsible.init(elems, {
-      accordion: false
-    });
-
-    // var elem = document.querySelector('.collapsible.expandable');
-    // var instance = M.Collapsible.init(elem, {
-    //   accordion: false
-    // });
+  var elem = document.querySelector('.collapsible.expandable');
+  var instance = M.Collapsible.init(elem, {
+    accordion: false
   });
 }
 
@@ -54,14 +47,14 @@ ipcRenderer.on('file:handler', (event, handler) => {
 
   let div = document.getElementById('data-list')
   let ul = document.createElement('ul')
-  ul.classList.add('collapsible', 'expandable', 'popout')
+  ul.classList.add('collapsible', 'expandable')
   
   for (let record of handler.records) {
     ul.appendChild(genListItem(record))
   }
   
   div.appendChild(ul)
-  addListListener()
+  initCollapse()
 })
 
 ipcRenderer.on('file:exported', (event, data) => {
