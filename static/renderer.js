@@ -48,13 +48,15 @@ ipcRenderer.on('file:handler', (event, handler) => {
   
   renderFileInfo()
 
-  let div = document.querySelector('#content-body')
+  // let div = document.querySelector('#main-content')
+  let div = document.getElementById('data-list')
   let ul = document.createElement('ul')
   ul.classList.add('collapsible', 'expandable', 'popout')
   
   for (let record of handler.records) {
     ul.appendChild(genListItem(record))
   }
+  
   div.appendChild(ul)
   addListListener()
   console.log(ul)
@@ -63,10 +65,10 @@ ipcRenderer.on('file:handler', (event, handler) => {
 // -------------------------------------------------------------------data propogation
 // clears main content and file info
 function clearContent() {
-  document.getElementById('landing').innerHTML = ''
+  document.getElementById('data-list').innerHTML = ''
   document.getElementById('file-name').innerHTML = ''
   document.getElementById('total-records').innerHTML = ''
-  document.getElementById('content-body').innerHTML = ''
+  // document.getElementById('main-content').innerHTML = ''
 }
 
 // renders file info

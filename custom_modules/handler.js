@@ -76,10 +76,10 @@ module.exports = {
       
       // regex - everything in double quotes: (["'])(?:\\.|[^\\])*?\1
       let params = raw[i].match(/(["'])(?:\\.|[^\\])*?\1/g)
-      console.log(`parameters: ${params}`)
+      // console.log(`parameters: ${params}`)
       for (param in params) {
         let str = param.substr(1)
-        console.log(`param: ${str}`)
+        // console.log(`param: ${str}`)
       }
 
       if (i === 0) {
