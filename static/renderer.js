@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // import submit
 document.getElementById("import-submit").addEventListener("click", (event => {
   const { path } = document.getElementById('form-import-file').files[0]
-  M.toast({ html: 'DDL data imported'})
+  M.toast({ html: 'data file imported'})
   ipcRenderer.send('file:import', path)
 }))
 
@@ -20,6 +20,7 @@ document.getElementById("import-submit").addEventListener("click", (event => {
 document.getElementById("export-submit").addEventListener("click", (event => {
   if (!handler_data) {
     M.toast({ html: 'please import a file first'})
+    //TODO clear export input
     return
   }
   M.toast({ html: 'generating PSV'})
@@ -69,22 +70,21 @@ function clearContent() {
 function renderFileInfo() {
   let names = handler_data.file.split('/')
   let name = names[names.length - 1]
-  // document.getElementById('file-name').innerHTML = `${handler.file}`
   document.getElementById('file-name').innerHTML = `${name}`
-  // document.getElementById('total-records').innerHTML = `Total Records: ${handler.records.length}`
+  
   document.getElementById('total-records').innerHTML = `Total Records: ${handler_data.records.length}`
 }
 
 // returns list item
 function genListItem(record) {
   let li = document.createElement('li')
-  let head = document.createElement('div')
-  let body = document.createElement('div')
   
+  let head = document.createElement('div')
   head.classList.add('collapsible-header', 'grey', 'darken-2', 'white-text')
-  // add header icon <i class="material-icons">whatshot</i>
+  //TODO add header icon <i class="material-icons">whatshot</i>
   head.innerHTML = `${record.data.keyword} ${record.data.network} ${record.data.name} ${record.data.description}<br> TYPE: ${record.type}`
   
+  let body = document.createElement('div')
   body.classList.add('collapsible-body', 'grey', 'darken-3', 'white-text', 'truncate')
   body.innerHTML = `<span><pre>${record.raw}</pre></span>`
 
