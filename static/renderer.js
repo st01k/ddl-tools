@@ -56,6 +56,8 @@ ipcRenderer.on('file:handler', (event, handler) => {
     ul.appendChild(genListItem(record))
   }
   div.appendChild(ul)
+  addListListener()
+  console.log(ul)
 })
 
 // -------------------------------------------------------------------data propogation
