@@ -13,11 +13,11 @@ document.addEventListener('DOMContentLoaded', function() {
 document.getElementById("import-submit").addEventListener("click", (event => {
   const { path } = document.getElementById('form-import-file').files[0]
   
+  M.toast({ html: 'importing data'})
+
   setTimeout(() => {
     ipcRenderer.send('file:import', path)
   }, 1500)
-  
-  M.toast({ html: 'importing data file'})
 }))
 
 // export submit
@@ -27,29 +27,42 @@ document.getElementById("export-submit").addEventListener("click", (event => {
     //TODO clear export input
     return
   }
-  M.toast({ html: 'generating CS-PSV'})
+  
+  let pathAry = handler_data.file.split('/')
+  let fileName = pathAry[pathAry.length - 1]
+  let newName = fileName.split('.')[0] + '.csv'
+
+  const outputFileInput = document.getElementById('output-file')
+  if (!outputFileInput.getAttribute('value')) outputFileInput.setAttribute('value', newName)
+  console.log(outputFileInput.getAttribute('value'))
+  
+  
+
+  var toastHTML = `<span>generating ${newName}</span><button class="btn-flat toast-action">OPEN</button>`
+  // open directory of new file
+  M.toast({html: toastHTML});
 }))
 
 function addListListener() {
   // record list collapse
   document.addEventListener('DOMContentLoaded', function() {
-    // var elems = document.querySelectorAll('.collapsible.expandable');
-    // var instances = M.Collapsible.init(elems, {
-    //   accordion: false
-    // });
-
-    var elem = document.querySelector('.collapsible.expandable');
-    var instance = M.Collapsible.init(elem, {
+    var elems = document.querySelectorAll('.collapsible.expandable');
+    var instances = M.Collapsible.init(elems, {
       accordion: false
     });
+
+    // var elem = document.querySelector('.collapsible.expandable');
+    // var instance = M.Collapsible.init(elem, {
+    //   accordion: false
+    // });
   });
 }
 
 // ------------------------------------------------------------------------ IPC
 ipcRenderer.on('file:handler', (event, handler) => {
-  clearContent()
   handler_data = handler
   
+  clearContent()
   renderFileInfo()
 
   // let div = document.querySelector('#main-content')
@@ -63,7 +76,6 @@ ipcRenderer.on('file:handler', (event, handler) => {
   
   div.appendChild(ul)
   addListListener()
-  console.log(ul)
 })
 
 // -------------------------------------------------------------------data propogation
@@ -72,6 +84,7 @@ function clearContent() {
   document.getElementById('data-list').innerHTML = ''
   document.getElementById('file-name').innerHTML = ''
   document.getElementById('total-records').innerHTML = ''
+  document.getElementById('output-file').setAttribute('value', '')
   // document.getElementById('main-content').innerHTML = ''
 }
 

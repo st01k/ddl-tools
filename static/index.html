@@ -69,9 +69,11 @@
 
   <div id="modal-export" class="modal grey darken-4">
     <div class="modal-content">
+      <h5>Leave blank for default <code>imported-filename.csv</code></h5>
+      <br>
       <div class="input-field">
+        <label for="output-file">enter a name for the generated file</label>
         <input id="output-file" type="text" class="validate white-text">
-        <label for="output-file">Please enter a name for the generated file</label>
       </div>
     </div>
     <div class="modal-footer grey darken-4">
@@ -80,7 +82,7 @@
   </div>
 
   <script type="text/javascript" src="js/materialize.min.js"></script>
-  <script type="text/javascript" src="js/dropzone.js"></script>
+  <!-- <script type="text/javascript" src="js/dropzone.js"></script> -->
   <script>require('./renderer.js')</script>
 </body>
 

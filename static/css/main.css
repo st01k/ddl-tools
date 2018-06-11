@@ -11,6 +11,10 @@ nav .brand-logo {
   padding-left: 10px;
 }
 
+code {
+  color: #64b5f6;
+}
+
 .fixed {
   position: fixed;
 }
