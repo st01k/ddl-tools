@@ -4,11 +4,13 @@ let cnt = 1
 
 module.exports = {
   file: '',
+  path: '',
   raw_data: '',
   records: [],
 
   import: function(path) {
-    this.file = path
+    this.file = path.split('/').pop()
+    this.path = path
     this.raw_data = fse.readFileSync(path, 'utf8') || ''
     this.records = this.extract()
 
@@ -127,7 +129,18 @@ module.exports = {
 
   },
 
-  export: function() {
+  export: function(data) {
+    console.log('exporting')
+    let tempDir = this.path.split('/')
+    let file = tempDir.pop().split('.')[0] + '.csv'
+    let saveDir = tempDir.join('/') + '/' + file
 
+    fse.writeFile(saveDir, data, function(err) {
+      if(err) return console.log(err)
+      
+      console.log(`exported file saved to ${saveDir}`)
+    });
+
+    return file
   }
 }

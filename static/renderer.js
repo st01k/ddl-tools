@@ -29,13 +29,7 @@ document.getElementById("export-submit").addEventListener("click", (event => {
     return
   }
   
-  let pathAry = handler_data.file.split('/')
-  let fileName = pathAry[pathAry.length - 1]
-  let newName = fileName.split('.')[0] + '.csv'  
-
-  var toastHTML = `<span>generating ${newName}</span><button class="btn-flat toast-action">OPEN</button>`
-  // open directory of new file
-  M.toast({html: toastHTML});
+  ipcRenderer.send('file:export', handler_data)
 }))
 
 function addListListener() {
@@ -58,7 +52,6 @@ ipcRenderer.on('file:handler', (event, handler) => {
   handler_data = handler
   renderFileInfo()
 
-  // let div = document.querySelector('#main-content')
   let div = document.getElementById('data-list')
   let ul = document.createElement('ul')
   ul.classList.add('collapsible', 'expandable', 'popout')
@@ -71,13 +64,18 @@ ipcRenderer.on('file:handler', (event, handler) => {
   addListListener()
 })
 
-// -------------------------------------------------------------------data propogation
+ipcRenderer.on('file:exported', (event, data) => {
+  var toastHTML = `<span>generating ${data}</span><button class="btn-flat toast-action">SHOW</button>`
+  //TODO hook up open directory of new file
+  M.toast({html: toastHTML});
+})
+
+// ------------------------------------------------------------------- data propogation
 // clears main content and file info
 function clearContent() {
   document.getElementById('data-list').innerHTML = ''
   document.getElementById('file-name').innerHTML = ''
   document.getElementById('total-records').innerHTML = ''
-  // document.getElementById('main-content').innerHTML = ''
 }
 
 // renders file info
