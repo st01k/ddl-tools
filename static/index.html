@@ -7,24 +7,29 @@
 </head>
 <body>
 
-  <nav class="navbar-fixed">
-    <div class="nav-wrapper">
-
-      <a href="#!" class="brand-logo blue-text text-lighten-2">dooDDLer</a>
-      <a href="#" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-
-      <ul class="right hide-on-med-and-down">
-        <li><a class="waves-effect waves-light btn modal-trigger blue lighten-2" href="#modal-import">Import</a></li>
-        <li><a class="waves-effect waves-light btn modal-trigger blue lighten-2" href="#modal-export">Export</a></li>
-      </ul>
-
-    </div>
-  </nav>
+  <div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper">
+    
+          <a href="#!" class="brand-logo blue-text text-lighten-2">dooDDLer</a>
+          <a href="#" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    
+          <ul class="right hide-on-med-and-down">
+            <li><a class="waves-effect waves-light btn modal-trigger blue lighten-2" href="#modal-import">Import</a></li>
+            <li><a class="waves-effect waves-light btn modal-trigger blue lighten-2" href="#modal-export">Export</a></li>
+          </ul>
+    
+        </div>
+      </nav>
+  </div>
   
   <div class="row">
 
-    <div id="side-bar" class="col s3 flex">
+    <div id="side-bar" class="col s3 flex fixed">
       <ul>
+        <li>
+          <h1 id="landing">No File Data</h1>
+        </li>
         <li>
           <h5 id="file-name"></h5>
         </li>
@@ -35,13 +40,13 @@
     </div>
 
     <div id="main-content" class="col-s9 flex">
-      <!-- <div class="row" id="content-head">
-        <h1>content head</h1>
-      </div> -->
+
       <div class="row valign-wrapper" id="content-body">
-        <h4 id="landing" class="grey-text text-darken-3">Import a file by clicking the import button up top.</h4>
+        <h4 class="grey-text text-darken-3">Select a file by clicking 'import' above.</h4>
       </div>
+
     </div>
+
   </div>
 
   <div id="modal-import" class="modal grey darken-4">

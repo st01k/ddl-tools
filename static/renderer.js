@@ -63,6 +63,7 @@ ipcRenderer.on('file:handler', (event, handler) => {
 // -------------------------------------------------------------------data propogation
 // clears main content and file info
 function clearContent() {
+  document.getElementById('landing').innerHTML = ''
   document.getElementById('file-name').innerHTML = ''
   document.getElementById('total-records').innerHTML = ''
   document.getElementById('content-body').innerHTML = ''

@@ -11,13 +11,17 @@ nav .brand-logo {
   padding-left: 10px;
 }
 
+.fixed {
+  position: fixed;
+}
+
 #side-bar {
-  /* min-height: 100vh; */
-  /* position: fixed; */
+  background-color: #2f2f33;
+  min-height: 100vh;
 }
 
 #main-content {
-  /* padding-left: 300px; */
+  padding-left: 300px;
 }
 
 .flex {
@@ -27,22 +31,9 @@ nav .brand-logo {
 }
 
 #landing {
-  
-}
-
-/* .modal {
-  background-color: #252526;
-  border-color: #6a98fc;
-} */
-
-.modal .modal-content {
-  /* background-color: #252526;
-  color: whitesmoke; */
-}
-
-.modal .modal-footer {
-  /* background-color: #252526;
-  color: whitesmoke; */
+ color: #161616; 
+ font-size: 9em;
+ font-weight: bolder;
 }
 
 nav .nav-wrapper {
