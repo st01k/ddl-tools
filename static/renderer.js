@@ -1,6 +1,8 @@
 const electron = require('electron')
 const { ipcRenderer } = electron
 
+let handler_data
+
 // modals
 document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.modal');
@@ -16,6 +18,10 @@ document.getElementById("import-submit").addEventListener("click", (event => {
 
 // export submit
 document.getElementById("export-submit").addEventListener("click", (event => {
+  if (!handler_data) {
+    M.toast({ html: 'please import a file first'})
+    return
+  }
   M.toast({ html: 'generating PSV'})
 }))
 
@@ -30,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // ------------------------------------------------------------------------ IPC
 ipcRenderer.on('file:handler', (event, handler) => {
   clearContent()
+  handler_data = handler
   
   document.getElementById('total-records').innerHTML = `Total Records: ${handler.records.length}`
   document.getElementById('filename').innerHTML = `${handler.file}`
