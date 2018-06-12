@@ -25,7 +25,6 @@ document.getElementById("import-submit").addEventListener("click", (event => {
 document.getElementById("export-submit").addEventListener("click", (event => {
   if (!handler_data) {
     M.toast({ html: 'please import a file first'})
-    //TODO clear export input
     return
   }
   
@@ -73,11 +72,25 @@ function clearContent() {
 
 // renders file info
 function renderFileInfo() {
+  // file name
   let names = handler_data.file.split('/')
   let name = names[names.length - 1]
   document.getElementById('file-name').innerHTML = `${name}`
   
+  // total records
   document.getElementById('total-records').innerHTML = `Total Records: ${handler_data.records.length}`
+
+  // let header = handler_data.records[0]
+  // let headerData
+  // for (let line in header) {
+  //   headerData = (line.charAt(0) === '@') ? line : 'no header data'
+  // }
+
+  // let summary = handler_data.records[handler_data.records.length - 1]
+
+  // network name
+  // NC name
+  // NCMname
 }
 
 // returns list item

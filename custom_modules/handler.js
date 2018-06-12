@@ -27,8 +27,9 @@ module.exports = {
       if (line.match(/^\s*$/)) {
         // empty line
         cnt++
-        let rec = this.buildRecord(cnt, raw_data)
+        let rec = buildRecord(cnt, raw_data)
         if (rec) {
+          // do not add empty records
           if (rec.type !== 'empty') {
             records.push(rec)
           }
@@ -52,94 +53,92 @@ module.exports = {
     return records
   },
 
-  buildRecord(id, raw) {
-    let type = 'empty'
-    let keyword
-    let network
-    let name
-    let description
-
-    for (let i = 0; i <= raw.length - 1; i++) {
-
-      switch(raw[i].charAt(0)) {
-        case '@':
-          type = 'header'
-          break
-        case '*':
-          
-          break
-        case '~':
-          
-          break
-        default: 
-          
-          break
-      }
-      
-      // regex - everything in double quotes: (["'])(?:\\.|[^\\])*?\1
-      let params = raw[i].match(/(["'])(?:\\.|[^\\])*?\1/g)
-      // console.log(`parameters: ${params}`)
-      for (param in params) {
-        let str = param.substr(1)
-        // console.log(`param: ${str}`)
-      }
-
-      if (i === 0) {
-        let el = raw[i].split(',')
-        let temp = el[0].split(' ')
-
-        switch(raw[i].charAt(0)) {
-          case '*':
-            type = 'info'
-            break
-          case '~':
-            type = 'err/msg'
-            break
-          default: 
-            type = 'record data'
-            keyword = temp[0]
-            network = temp[1]
-            name = el[1]
-            description = el[2]
-            break
-        }
-      }
-    }
-
-    let record = {
-      id: id,
-      type: type,
-      raw: raw,
-      data: {
-        keyword: keyword,
-        network: network,
-        name: name,
-        description: description,
-        params: [],
-        subKeywords: [],
-        comment: {},
-        errors: []
-      }
-    }
-
-    return record
-  },
-
-  parse: function() {
-
-  },
-
   export: function(data) {
-    let tempDir = this.path.split('/')
-    let file = tempDir.pop().split('.')[0] + '.csv'
-    let saveDir = tempDir.join('/') + '/' + file
+    let pathAry = this.path.split('/')
+    let filename = pathAry.pop().split('.')[0] + '.csv'
+    let saveFile = pathAry.join('/') + '/' + filename
 
-    fse.writeFile(saveDir, data, function(err) {
+    fse.writeFile(saveFile, data, function(err) {
       if(err) return console.log(err)
 
-      console.log(`exported file saved to ${saveDir}`)
+      console.log(`exported file saved to ${saveFile}`)
     });
 
-    return file
+    return filename
   }
+}
+
+function buildRecord(id, raw) {
+  let type = 'empty'
+  let keyword
+  let network
+  let name
+  let description
+
+  for (let i = 0; i <= raw.length - 1; i++) {
+
+    switch(raw[i].charAt(0)) {
+      case '@':
+        type = 'header'
+        break
+      case '*':
+        
+        break
+      case '~':
+        
+        break
+      default: 
+        
+        break
+    }
+    
+    // regex - everything in double quotes including quotes
+    let params = raw[i].match(/(["'])(?:\\.|[^\\])*?\1/g)
+    for (param in params) {
+      let str = param.substr(1)
+    }
+
+    if (i === 0) {
+      let el = raw[i].split(',')
+      let temp = el[0].split(' ')
+
+      switch(raw[i].charAt(0)) {
+        case '*':
+          type = 'info'
+          break
+        case '~':
+          type = 'err/msg'
+          break
+        default: 
+          type = 'record data'
+          keyword = temp[0]
+          network = temp[1]
+          name = el[1]
+          description = el[2]
+          break
+      }
+    }
+  }
+
+  let record = {
+    id: id,
+    type: type,
+    raw: raw,
+    data: {
+      keyword: keyword,
+      network: network,
+      name: name,
+      description: description,
+      params: [],
+      subKeywords: [],
+      comment: {},
+      errors: []
+    }
+  }
+
+  return record
+}
+
+function parse() {
+
 }
