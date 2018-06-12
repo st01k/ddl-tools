@@ -1,7 +1,5 @@
 const fse = require('fs-extra')
 
-let cnt = 1
-
 module.exports = {
   file: '',
   path: '',
@@ -12,55 +10,20 @@ module.exports = {
     this.file = path.split('/').pop()
     this.path = path
     this.raw_data = fse.readFileSync(path, 'utf8') || ''
-    this.records = this.extract()
+    this.records = extract(this.raw_data)
 
     return this
   },
 
-  extract: function() {
-    let lines = this.raw_data.split('\n')
-    let cnt = 0
-    let records = []
-    let raw_data = []
-
-    for (const line of lines) {
-      if (line.match(/^\s*$/)) {
-        // empty line
-        cnt++
-        let rec = buildRecord(cnt, raw_data)
-        if (rec) {
-          // do not add empty records
-          if (rec.type !== 'empty') {
-            records.push(rec)
-          }
-        }
-
-        raw_data = []
-      }
-      else {
-        // record start
-        raw_data.push(line)
-      }
-    }
-
-    // for (let i = 0; i <= records.length - 1; i++) {
-    //   if (records[i].type == 'empty') {
-    //     console.log(`removing record ${records[i].id} [${records[i].type}]`)
-    //     records.splice(i, 1)
-    //   }
-    // }
-
-    return records
-  },
-
-  export: function(data) {
+  export: function() {
     let pathAry = this.path.split('/')
     let filename = pathAry.pop().split('.')[0] + '.csv'
     let saveFile = pathAry.join('/') + '/' + filename
 
-    fse.writeFile(saveFile, data, function(err) {
-      if(err) return console.log(err)
+    let parsedData = parse(this.records)
 
+    fse.writeFile(saveFile, parsedData, function(err) {
+      if(err) return console.log(err)
       console.log(`exported file saved to ${saveFile}`)
     });
 
@@ -68,8 +31,40 @@ module.exports = {
   }
 }
 
+function extract(raw) {
+  let lines = raw.split('\n')
+  let cnt = 0
+  let records = []
+  let raw_data = []
+
+  for (const line of lines) {
+    if (line.match(/^\s*$/)) {
+      // empty line
+      cnt++
+      let rec = buildRecord(cnt, raw_data)
+      if (rec) {
+        // do not add empty records
+        if (rec.type !== 'empty') {
+          records.push(rec)
+        }
+      }
+
+      raw_data = []
+    }
+    else {
+      // record start
+      raw_data.push(line)
+    }
+  }
+
+  return records
+}
+
 function buildRecord(id, raw) {
-  let type = 'empty'
+  let types = ['empty', 'header', 'device', 'point', 'program', 'error', 'message', 'summary']
+  // enum
+
+  let type = types[0] // empty
   let keyword
   let network
   let name
@@ -79,7 +74,7 @@ function buildRecord(id, raw) {
 
     switch(raw[i].charAt(0)) {
       case '@':
-        type = 'header'
+        type = types[1] // header
         break
       case '*':
         
@@ -136,9 +131,10 @@ function buildRecord(id, raw) {
     }
   }
 
+  console.log(record)
   return record
 }
 
-function parse() {
-
+function parse(records) {
+  return JSON.stringify(records)
 }
