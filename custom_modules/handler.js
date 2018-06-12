@@ -1,5 +1,8 @@
 const fse = require('fs-extra')
 
+const TYPES = ['empty', 'header', 'summary', 'error', 'record']
+// enum
+
 module.exports = {
   file: '',
   path: '',
@@ -44,7 +47,8 @@ function extract(raw) {
     // create new record if empty line is found
     if (line.match(/^\s*$/)) {
       cnt++
-      let rec = buildRecord(cnt, raw_data)
+      let rec = initRecord(cnt, raw_data)
+      let builtRec = buildRecord(rec)
 
       // push non-empty records to array
       if (rec) {
@@ -63,47 +67,25 @@ function extract(raw) {
   return records
 }
 
-function buildRecord(id, raw) {
-  let types = ['empty', 'header', 'summary', 'error', 'device', 'point', 'program']
-  // enum
+// initializes record with id, type, and raw data
+function initRecord(id, raw) {
+  let type = TYPES[0] // empty
 
-  let type = types[0] // empty
-  let keyword
-  let network
-  let name
-  let description
-
-  // iterate through each line of the record data
+  // assign type to record
   for (let i = 0; i <= raw.length - 1; i++) {
-
-    if (raw[i].charAt(0) === '@') {
-      type = types[1] // header
-      handleHeader()
-    }
-    
-    // regex - everything in double quotes including quotes
-    // let params = raw[i].match(/(["'])(?:\\.|[^\\])*?\1/g)
-    // for (param in params) {
-    //   let str = param.substr(1)
-    // }
+    if (raw[i].charAt(0) === '@') type = TYPES[1] // header
 
     if (i === 0) {
-      let ary = raw[i].split(',')
-      let temp = ary[0].split(' ')
 
       switch(raw[i].charAt(0)) {
         case '*':
-          type = types[2] // summary
+          type = TYPES[2] // summary
           break
         case '~':
-          type = types[3] // global error
+          type = TYPES[3] // global error
           break
         default: 
-          type = 'record'
-          keyword = temp[0]
-          network = temp[1]
-          name = ary[1]
-          description = ary[2]
+          type = TYPES[4] // record - reassign on build record
           break
       }
     }
@@ -113,38 +95,161 @@ function buildRecord(id, raw) {
     id: id,
     type: type,
     raw: raw,
-    data: {
-      keyword: keyword,
-      network: network,
-      name: name,
-      description: description,
-      params: [],
-      subKeywords: [],
-      comment: {},
-      errors: []
-    }
+    data: {}
   }
 
-  console.log(record.type)
   return record
 }
 
-function handleHeader() {
+function buildRecord(rawRecord) {
+  let cleanRecord
+  
+  switch(rawRecord.type) {
+    case TYPES[0]:
+      // skip empty records
+      break
+
+    case TYPES[1]:
+      cleanRecord = handleHeader(rawRecord)
+      break
+
+    case TYPES[2]:
+      cleanRecord = handleSummary(rawRecord)
+      break
+
+    case TYPES[3]:
+      cleanRecord = handleError(rawRecord)
+      break
+
+    case TYPES[4]:
+      cleanRecord = handleRecord(rawRecord)
+      break
+
+    default:
+      console.log('ERROR in handler.buildRecord switch')
+      break
+  }
+
+  return cleanRecord
+}
+
+function handleComment(s) {
+  // console.log('handling comment')
+
+  // NOTE may need the \r
+  return s.replace(/\*/g, '').replace(/\r/g, '')
+}
+
+function handleHeader(data) {
   console.log('handling header')
+
+  let header = {
+    intro: [],
+    date: null,
+    source: '',
+    fileType: '',
+    networkName: '',
+    ncmName: ''
+  }
+
+  for (let line of data.raw) {
+
+    // handle intro
+    if (line.charAt(0) === '*') {
+      header.intro.push(handleComment(line))
+    }
+
+    // TODO handle decompile date
+    // TODO handle decompile source
+    
+    if (line.charAt(0) === '@') {
+      // handle file type
+      let dataAry = line.split(',')
+      let temp = dataAry[0].split(' ')
+      header.fileType = temp[0].replace(/@/g, '')
+      // handle network name
+      header.networkName = sanitize(temp[1])
+      // handle ncmName
+      header.ncmName = sanitize(dataAry[1])
+    }
+  }
+  return header
 }
 
-function handleSummary() {
-  console.log('handling summary')
+function handleSummary(data) {
+  // console.log('handling summary')
 }
 
-function handleError() {
-  console.log('handling error')
+function handleError(data) {
+  // console.log('handling error')
 }
 
-function handleComment() {
-  console.log('handling comment')
+function handleRecord(data) {
+  // console.log('handling record')
+
+  const recordTypes = ['device', 'point', 'program']
+
+  let recData = {
+    keyword: '',
+    network: '',
+    id: '',
+    description: '',
+    subKeywords: [],
+    comments: [],
+    errors: []
+  }
+
+  for (let line of data.raw) {
+    console.log(line)
+
+    // handle comment
+    if (line.charAt(0) === '*') {
+      recData.comments.push(handleComment(line))
+      continue
+    }
+
+    // handle error
+    if (line.charAt(0) === '~') {
+      
+      continue
+    }
+    
+    let dataAry = line.split(',')
+    let temp = dataAry[0].split(' ')
+
+    // handle keyword
+    if (line.charAt(0) !== ' ') {
+      recData.keyword = temp[0].replace(/@/g, '')
+      recData.network = sanitize(temp[1])
+      recData.id = sanitize(dataAry[1])
+      recData.description = sanitize(dataAry[2])
+    }
+    // handle subkeywords
+    else {
+      let sub = {
+
+      }
+
+      recData.subKeywords.push(sub)
+    }
+  }
+  console.log(recData)
+  return recData
 }
 
+// cleans a string
+function sanitize(s) {
+  if (s) return s.replace(/\"/g, '').replace(/\r/g, '').trim()
+  return ''
+}
+
+// converts file json data into .csv format
 function parse(records) {
   return JSON.stringify(records)
 }
+
+// regex - everything in double quotes including quotes
+// let params = data[i].match(/(["'])(?:\\.|[^\\])*?\1/g)
+// for (param in params) {
+//   let str = param.substr(1)
+// }
