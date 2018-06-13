@@ -110,11 +110,12 @@ function extract(raw) {
     if (line.match(/^\s*$/)) {
       cnt++
       let rec = initRecord(cnt, raw_data)
-      let builtRec = buildRecord(rec)
+      rec = buildRecord(rec)
 
       // push non-empty records to array
       if (rec) {
         if (rec.type !== 'empty') records.push(rec)
+        console.log(rec)
       }
 
       // reset temp data holder
@@ -240,10 +241,14 @@ function handleHeader(data) {
 
 function handleSummary(data) {
   // console.log('handling summary')
+  let summary = {}
+  return summary
 }
 
 function handleError(data) {
   // console.log('handling error')
+  let error = {}
+  return error
 }
 
 function handleRecord(data) {
@@ -283,6 +288,7 @@ function handleRecord(data) {
       let temp = dataAry[0].split(' ')
 
       recData.keyword = temp[0]
+      recData.type = searchKeywords(recData.keyword).type
       recData.network = sanitize(temp[1])
       recData.id = sanitize(dataAry[1])
       recData.description = sanitize(dataAry[2])
@@ -306,7 +312,6 @@ function handleRecord(data) {
       recData.subKeywords.push(sub)
     }
   }
-  // console.log(recData)
   return recData
 }
 
@@ -314,6 +319,16 @@ function handleRecord(data) {
 function sanitize(s) {
   if (s) return s.replace(/\"/g, '').replace(/\r/g, '').trim()
   return ''
+}
+
+function searchKeywords(s) {
+  for (let el of KEYWORDS.NC) {
+    let keys = Object.keys(el)
+    if (keys[0] === s) {
+      return el
+    }
+  }
+  return null
 }
 
 // converts file json data into .csv format

@@ -42,12 +42,15 @@ function initCollapse() {
 // ------------------------------------------------------------------------ IPC
 ipcRenderer.on('file:handler', (event, handler) => {
   handler_data = handler
-  renderFileInfo()
+
+  let header = handler.records.shift()
+  let summary = handler.records.pop()
+  renderFileInfo(header, summary)
 
   let div = document.getElementById('data-list')
   let ul = document.createElement('ul')
   ul.classList.add('collapsible', 'expandable')
-  
+
   for (let record of handler.records) {
     ul.appendChild(genListItem(record))
   }
@@ -71,7 +74,7 @@ function clearContent() {
 }
 
 // renders file info
-function renderFileInfo() {
+function renderFileInfo(head, sum) {
   // file name
   let names = handler_data.file.split('/')
   let name = names[names.length - 1]
@@ -100,7 +103,7 @@ function genListItem(record) {
   let head = document.createElement('div')
   head.classList.add('collapsible-header', 'grey', 'darken-2', 'white-text')
   //TODO add header icon <i class="material-icons">whatshot</i>
-  head.innerHTML = `${record.data.keyword} ${record.data.network} ${record.data.name} ${record.data.description}<br> TYPE: ${record.type}`
+  head.innerHTML = `${record.keyword} ${record.network} ${record.id} ${record.description}<br> TYPE: ${record.type}`
   
   let body = document.createElement('div')
   body.classList.add('collapsible-body', 'grey', 'darken-3', 'white-text', 'truncate')
