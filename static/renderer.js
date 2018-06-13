@@ -83,17 +83,10 @@ function renderFileInfo(head, sum) {
   // total records
   document.getElementById('total-records').innerHTML = `Total Records: ${handler_data.records.length}`
 
-  // let header = handler_data.records[0]
-  // let headerData
-  // for (let line in header) {
-  //   headerData = (line.charAt(0) === '@') ? line : 'no header data'
-  // }
-
-  // let summary = handler_data.records[handler_data.records.length - 1]
-
-  // network name
-  // NC name
-  // NCMname
+  document.getElementById('network').innerHTML = `${head.networkName}`
+  document.getElementById('ncm').innerHTML = `${head.ncmName}`
+  
+  //TODO add summary and counts w/ color coding by type
 }
 
 // returns list item
@@ -107,7 +100,7 @@ function genListItem(record) {
   
   let body = document.createElement('div')
   body.classList.add('collapsible-body', 'grey', 'darken-3', 'white-text', 'truncate')
-  body.innerHTML = `<span><pre>${record.raw}</pre></span>`
+  body.innerHTML = `<span><pre>${record.subKeywords}</pre></span>`
 
   li.appendChild(head)
   li.appendChild(body)

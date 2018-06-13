@@ -157,8 +157,7 @@ function initRecord(id, raw) {
   let record = {
     id: id,
     type: type,
-    raw: raw,
-    data: {}
+    raw: raw
   }
 
   return record
