@@ -96,14 +96,16 @@ function genListItem(record) {
   li.id = `ddl-rec-${record.id}`
   
   let head = document.createElement('div')
-  // head.classList.add('collapsible-header', 'grey', 'darken-2', 'white-text')
-  head.classList.add('collapsible-header', 'white-text')
   //TODO add header icon <i class="material-icons">whatshot</i>
   let headTemplate = 
   `
-    <div class="row"></div>
+    <div class="col s2">${record.keyword}</div>
+    <div class="col s3">${record.network}</div>
+    <div class="col s3">${record.name}</div>
+    <div class="col s4">${record.description}</div>
   `
-  head.innerHTML = `ID: ${record.id} <br> ${record.keyword} ${record.network} ${record.name} ${record.description}<br> TYPE: ${record.type}`
+  // head.innerHTML = `ID: ${record.id} <br> ${record.keyword} ${record.network} ${record.name} ${record.description}<br> TYPE: ${record.type}`
+  head.innerHTML = headTemplate
 
   let backgroundColor
   switch(record.type) {
@@ -123,7 +125,7 @@ function genListItem(record) {
       backgroundColor = 'ddl-grey'
       break
   }
-  head.classList.add(backgroundColor)
+  head.classList.add(backgroundColor, 'collapsible-header', 'white-text', 'center-align')
   
   let body = document.createElement('div')
   body.classList.add('collapsible-body', 'grey', 'darken-3', 'white-text', 'truncate')
