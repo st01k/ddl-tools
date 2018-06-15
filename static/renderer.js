@@ -95,9 +95,30 @@ function genListItem(record) {
   let li = document.createElement('li')
   
   let head = document.createElement('div')
-  head.classList.add('collapsible-header', 'grey', 'darken-2', 'white-text')
+  // head.classList.add('collapsible-header', 'grey', 'darken-2', 'white-text')
+  head.classList.add('collapsible-header', 'white-text')
   //TODO add header icon <i class="material-icons">whatshot</i>
   head.innerHTML = `${record.keyword} ${record.network} ${record.id} ${record.description}<br> TYPE: ${record.type}`
+
+  let backgroundColor
+  switch(record.type) {
+    case 'error':
+      backgroundColor = 'ddl-red'
+      break
+    case 'hardware':
+      backgroundColor = 'ddl-grey'
+      break
+    case 'software':
+      backgroundColor = 'ddl-green'
+      break
+    case 'feature':
+      backgroundColor = 'ddl-yellow'
+      break
+    default:
+      backgroundColor = 'ddl-grey'
+      break
+  }
+  head.classList.add(backgroundColor)
   
   let body = document.createElement('div')
   body.classList.add('collapsible-body', 'grey', 'darken-3', 'white-text', 'truncate')

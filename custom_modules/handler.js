@@ -246,7 +246,9 @@ function handleSummary(data) {
 
 function handleError(data) {
   // console.log('handling error')
-  let error = {}
+  let error = {
+    type: 'error'
+  }
   return error
 }
 
