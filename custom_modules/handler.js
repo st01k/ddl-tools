@@ -206,6 +206,7 @@ function handleHeader(data) {
   // console.log('handling header')
 
   let header = {
+    id: data.id,
     intro: [],
     date: null,
     source: '',
@@ -240,13 +241,17 @@ function handleHeader(data) {
 
 function handleSummary(data) {
   // console.log('handling summary')
-  let summary = {}
+  let summary = {
+    id: data.id,
+    type: 'summary'
+  }
   return summary
 }
 
 function handleError(data) {
   // console.log('handling error')
   let error = {
+    id: data.id,
     type: 'error'
   }
   return error
@@ -259,7 +264,8 @@ function handleRecord(data) {
     keyword: '',
     type: '',
     network: '',
-    id: '',
+    id: data.id,
+    name: '',
     description: '',
     subKeywords: [],
     comments: [],
@@ -291,7 +297,7 @@ function handleRecord(data) {
       recData.keyword = temp[0]
       recData.type = searchKeywords(recData.keyword).type
       recData.network = sanitize(temp[1])
-      recData.id = sanitize(dataAry[1])
+      recData.name = sanitize(dataAry[1])
       recData.description = sanitize(dataAry[2])
     }
     // handle subkeywords

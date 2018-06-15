@@ -93,12 +93,17 @@ function renderFileInfo(head, sum) {
 // returns list item
 function genListItem(record) {
   let li = document.createElement('li')
+  li.id = `ddl-rec-${record.id}`
   
   let head = document.createElement('div')
   // head.classList.add('collapsible-header', 'grey', 'darken-2', 'white-text')
   head.classList.add('collapsible-header', 'white-text')
   //TODO add header icon <i class="material-icons">whatshot</i>
-  head.innerHTML = `${record.keyword} ${record.network} ${record.id} ${record.description}<br> TYPE: ${record.type}`
+  let headTemplate = 
+  `
+    <div class="row"></div>
+  `
+  head.innerHTML = `ID: ${record.id} <br> ${record.keyword} ${record.network} ${record.name} ${record.description}<br> TYPE: ${record.type}`
 
   let backgroundColor
   switch(record.type) {
