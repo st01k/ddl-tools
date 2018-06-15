@@ -19,6 +19,14 @@ code {
   color: #64b5f6;
 }
 
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
 .fixed {
   position: fixed;
 }

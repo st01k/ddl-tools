@@ -57,6 +57,7 @@ ipcRenderer.on('file:handler', (event, handler) => {
   
   div.appendChild(ul)
   initCollapse()
+  document.getElementById('form-checkbox').classList.remove('hide')
 })
 
 ipcRenderer.on('file:exported', (event, data) => {
