@@ -6,6 +6,10 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
+.modal:focus {
+  outline-color: #64b5f6;
+}
+
 nav .brand-logo {
   cursor: default;
   padding-left: 10px;
