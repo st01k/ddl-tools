@@ -31,19 +31,59 @@ document.getElementById("export-submit").addEventListener("click", (event => {
   ipcRenderer.send('file:export', handler_data)
 }))
 
-let checks = document.getElementsByClassName("checkboxes")
-for (let check in checks) {
-  check.addEventListener("change", (event => {
-    console.log(`${event} changed`)
-  }))
-}
-
-function initCollapse() {
+function initView() {
   // record list collapse
   var elem = document.querySelector('.collapsible.expandable');
   var instance = M.Collapsible.init(elem, {
     accordion: false
   });
+
+  // checkbox listeners
+  let checks = document.getElementsByClassName("checkbox")
+  for (let check of checks) {
+    check.addEventListener("click", (event => {
+      let box = document.getElementById(event.target.id)
+      console.log(event.target)
+
+      let boxChanged
+
+      switch(event.target.id) {
+        case 'form-show-hardware':
+          boxChanged = 'hardware'
+          break
+        case 'form-show-software':
+          boxChanged = 'software'
+          break
+        case 'form-show-feature':
+          boxChanged = 'feature'
+          break
+        case 'form-show-error':
+          boxChanged = 'error'
+          break
+        default:
+          console.log('ERROR in renderer. initView switch')
+      }
+
+      if (box.value === 'on') {
+        // show
+        console.log(`ON: ${boxChanged} is ${box.value}`)
+        box.removeAttribute('checked')
+        console.log(box.hasAttribute('checked'))
+      }
+      else {
+        // hide
+        console.log(`OFF: ${boxChanged} is ${box.value}`)
+        box.setAttribute('checked', 'checked')
+        console.log(box.hasAttribute('checked'))
+      }
+
+      // console.log(`${boxChanged} is ${box.value}`)
+    }))
+  }
+}
+
+function hide(e){
+  e.target.style.visibility = 'hidden';
 }
 
 // ------------------------------------------------------------------------ IPC
@@ -63,8 +103,8 @@ ipcRenderer.on('file:handler', (event, handler) => {
   }
   
   div.appendChild(ul)
-  initCollapse()
-  document.getElementById('form-checkbox').classList.remove('hide')
+  initView()
+  // document.getElementById('form-checkbox').classList.remove('hide')
 })
 
 ipcRenderer.on('file:exported', (event, data) => {
@@ -119,26 +159,26 @@ function renderFileInfo(head, sum) {
     <!-- <form action="#" id="form-checkbox"> -->
     <ul class="checkboxes">
       <li>
-        <label>
-          <input id="form-show-hardware" class="checkbox" type="checkbox" checked/>
+        <label for="form-show-hardware">
+          <input id="form-show-hardware" name="form-show-hardware" class="checkbox" type="checkbox" checked="checked"/>
           <span class="ddl-light-green-text">Show Hardware</span>
         </label>
       </li>
       <li>
-        <label>
-          <input id="form-show-software" class="checkbox" type="checkbox" checked/>
+        <label for="form-show-software">
+          <input id="form-show-software" name="form-show-software" class="checkbox" type="checkbox" checked="checked"/>
           <span class="ddl-purple-text">Show Software</span>
         </label>
       </li>
       <li>
-        <label>
-          <input id="form-show-feature" class="checkbox" type="checkbox" checked/>
+        <label for="form-show-feature">
+          <input id="form-show-feature" name="form-show-feature" class="checkbox" type="checkbox" checked="checked"/>
           <span class="ddl-yellow-text">Show Features</span>
         </label>
       </li>
       <li>
-        <label>
-          <input id="form-show-error" class="checkbox" type="checkbox" checked/>
+        <label for="form-show-error">
+          <input id="form-show-error" name="form-show-error" class="checkbox" type="checkbox" checked="checked"/>
           <span class="ddl-red-text">Show Errors</span>
         </label>
       </li>
