@@ -69,23 +69,87 @@ ipcRenderer.on('file:exported', (event, data) => {
 // ------------------------------------------------------------------- data propogation
 // clears main content and file info
 function clearContent() {
+  document.getElementById('side-bar').innerHTML = ''
   document.getElementById('data-list').innerHTML = ''
-  document.getElementById('file-name').innerHTML = ''
-  document.getElementById('total-records').innerHTML = ''
 }
 
 // renders file info
 function renderFileInfo(head, sum) {
-  // file name
-  let names = handler_data.file.split('/')
-  let name = names[names.length - 1]
-  document.getElementById('file-name').innerHTML = `${name}`
-  
-  // total records
-  document.getElementById('total-records').innerHTML = `Total Records: ${handler_data.records.length}`
+  let arr = handler_data.path.split('/')
+  // let name = arr[arr.length - 1]
+  let name = arr.pop()
+  let path = arr.join('/') + '/'
 
-  document.getElementById('network').innerHTML = `${head.networkName}`
-  document.getElementById('ncm').innerHTML = `${head.ncmName}`
+  let ulf = document.createElement('ul')
+  let ulc = document.createElement('ul')
+
+  let ulfTemplate = 
+  `
+    <li>
+      <p class="sub-text ddl-grey-text">${path}</p>
+      <div class="row">
+        <div class="col s8"><h6>${name}</h6></div>
+        <div class="col s4">
+          <span id="total" class="new badge ddl-blue" data-badge-caption="records">
+            ${handler_data.records.length}
+          </span>
+        </div>
+      </div>
+    </li>
+    <li>
+      <p>${head.networkName}</p>
+    </li>
+    <li>
+      <p>${head.ncmName}</p>
+    </li>
+  `
+  ulf.innerHTML = ulfTemplate
+
+  let ulcTemplate = 
+  `
+  <form action="#" id="form-checkbox">
+    <hr>
+    <!-- <form action="#" id="form-checkbox"> -->
+    <ul class="checkboxes">
+      <li>
+        <label>
+          <input id="form-show-hardware" class="checkbox" type="checkbox" checked/>
+          <span class="ddl-grey-text">Show Hardware</span>
+        </label>
+      </li>
+      <li>
+        <label>
+          <input id="form-show-software" class="checkbox" type="checkbox" checked/>
+          <span class="ddl-green-text">Show Software</span>
+        </label>
+      </li>
+      <li>
+        <label>
+          <input id="form-show-feature" class="checkbox" type="checkbox" checked/>
+          <span class="ddl-yellow-text">Show Features</span>
+        </label>
+      </li>
+      <li>
+        <label>
+          <input id="form-show-error" class="checkbox" type="checkbox" checked/>
+          <span class="ddl-red-text">Show Errors</span>
+        </label>
+      </li>
+    </ul>
+  </form>
+  `
+  ulc.innerHTML = ulcTemplate
+  
+  let sideBar = document.getElementById('side-bar')
+  sideBar.appendChild(ulf)
+  sideBar.appendChild(ulc)
+  // document.getElementById('file-name').innerHTML = `${name}`
+  
+  // // total records
+  // document.getElementById('total-records').innerHTML = `Total Records: ${handler_data.records.length}`
+
+  // document.getElementById('network').innerHTML = `${head.networkName}`
+  // document.getElementById('ncm').innerHTML = `${head.ncmName}`
   
   //TODO add summary and counts w/ color coding by type
 }
@@ -94,6 +158,7 @@ function renderFileInfo(head, sum) {
 function genListItem(record) {
   let li = document.createElement('li')
   li.id = `ddl-rec-${record.id}`
+  li.classList.add(record.type)
   
   let head = document.createElement('div')
   //TODO add header icon <i class="material-icons">whatshot</i>
@@ -102,9 +167,8 @@ function genListItem(record) {
     <div class="col s2">${record.keyword}</div>
     <div class="col s3">${record.network}</div>
     <div class="col s3">${record.name}</div>
-    <div class="col s4">${record.description}</div>
+    <div class="col s5">${record.description}</div>
   `
-  // head.innerHTML = `ID: ${record.id} <br> ${record.keyword} ${record.network} ${record.name} ${record.description}<br> TYPE: ${record.type}`
   head.innerHTML = headTemplate
 
   let backgroundColor
@@ -122,7 +186,7 @@ function genListItem(record) {
       backgroundColor = 'ddl-yellow'
       break
     default:
-      backgroundColor = 'ddl-grey'
+      backgroundColor = 'ddl-purple'
       break
   }
   head.classList.add(backgroundColor, 'collapsible-header', 'white-text', 'center-align')

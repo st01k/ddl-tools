@@ -6,6 +6,10 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
+hr {
+  border-color: #64b5f6;
+}
+
 .modal:focus {
   outline-color: #64b5f6;
 }
@@ -19,6 +23,14 @@ code {
   color: #64b5f6;
 }
 
+.sub-text {
+  font-size: .75em;
+}
+
+#total {
+  margin-top: 10%;
+}
+
 .hide {
   display: none;
 }
@@ -30,6 +42,10 @@ code {
 #side-bar {
   background-color: #2f2f33;
   min-height: 100vh;
+}
+#side-bar-legend {
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 #main-content {
@@ -61,27 +77,48 @@ nav .nav-wrapper {
 .ddl-blue {
   background-color: #6a98fc !important;
 }
+.ddl-blue-text {
+  color: #6a98fc !important;
+}
 
 .ddl-yellow {
   background-color: #e4d836 !important;
+}
+.ddl-yellow-text {
+  color: #e4d836 !important;
 }
 
 .ddl-purple {
   background-color: #9f86ff !important;
 }
+.ddl-purple-text {
+  color: #9f86ff !important;
+}
 
 .ddl-red {
   background-color: #e64759 !important;
+}
+.ddl-red-text {
+  color: #e64759 !important;
 }
 
 .ddl-green {
   background-color: #1bc98e !important;
 }
+.ddl-green-text {
+  color: #1bc98e !important;
+}
 
 .ddl-grey {
   background-color: #434857 !important;
 }
+.ddl-grey-text {
+  color: #7D818F !important;
+}
 
 .ddl-black {
   background-color: #101010 !important;
+}
+.ddl-black-text {
+  color: #101010 !important;
 }
