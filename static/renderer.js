@@ -31,6 +31,13 @@ document.getElementById("export-submit").addEventListener("click", (event => {
   ipcRenderer.send('file:export', handler_data)
 }))
 
+let checks = document.getElementsByClassName("checkboxes")
+for (let check in checks) {
+  check.addEventListener("change", (event => {
+    console.log(`${event} changed`)
+  }))
+}
+
 function initCollapse() {
   // record list collapse
   var elem = document.querySelector('.collapsible.expandable');
