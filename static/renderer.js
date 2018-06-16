@@ -86,10 +86,10 @@ function renderFileInfo(head, sum) {
   let ulfTemplate = 
   `
     <li>
-      <p class="sub-text ddl-grey-text">${path}</p>
+      <p class="sub-text ddl-light-grey-text">${path}</p>
       <div class="row">
-        <div class="col s8"><h6>${name}</h6></div>
-        <div class="col s4">
+        <div class="col s6"><h6>${name}</h6></div>
+        <div class="col s6">
           <span id="total" class="new badge ddl-blue" data-badge-caption="records">
             ${handler_data.records.length}
           </span>
@@ -114,13 +114,13 @@ function renderFileInfo(head, sum) {
       <li>
         <label>
           <input id="form-show-hardware" class="checkbox" type="checkbox" checked/>
-          <span class="ddl-grey-text">Show Hardware</span>
+          <span class="ddl-light-green-text">Show Hardware</span>
         </label>
       </li>
       <li>
         <label>
           <input id="form-show-software" class="checkbox" type="checkbox" checked/>
-          <span class="ddl-green-text">Show Software</span>
+          <span class="ddl-purple-text">Show Software</span>
         </label>
       </li>
       <li>
@@ -143,13 +143,6 @@ function renderFileInfo(head, sum) {
   let sideBar = document.getElementById('side-bar')
   sideBar.appendChild(ulf)
   sideBar.appendChild(ulc)
-  // document.getElementById('file-name').innerHTML = `${name}`
-  
-  // // total records
-  // document.getElementById('total-records').innerHTML = `Total Records: ${handler_data.records.length}`
-
-  // document.getElementById('network').innerHTML = `${head.networkName}`
-  // document.getElementById('ncm').innerHTML = `${head.ncmName}`
   
   //TODO add summary and counts w/ color coding by type
 }
@@ -177,10 +170,10 @@ function genListItem(record) {
       backgroundColor = 'ddl-red'
       break
     case 'hardware':
-      backgroundColor = 'ddl-grey'
+      backgroundColor = 'ddl-green'
       break
     case 'software':
-      backgroundColor = 'ddl-green'
+      backgroundColor = 'ddl-purple'
       break
     case 'feature':
       backgroundColor = 'ddl-yellow'
@@ -192,7 +185,7 @@ function genListItem(record) {
   head.classList.add(backgroundColor, 'collapsible-header', 'white-text', 'center-align')
   
   let body = document.createElement('div')
-  body.classList.add('collapsible-body', 'grey', 'darken-3', 'white-text', 'truncate')
+  body.classList.add('collapsible-body', 'ddl-dark-grey', 'white-text', 'truncate')
   body.innerHTML = `<span><pre>${record.subKeywords}</pre></span>`
 
   li.appendChild(head)
