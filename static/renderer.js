@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', function() {
 document.getElementById("import-submit").addEventListener("click", (event => {
   const { path } = document.getElementById('form-import-file').files[0]
   
+  if (!path) return
+
   clearContent()
   M.toast({ html: 'importing data'})
 
@@ -41,44 +43,21 @@ function initView() {
   // checkbox listeners
   let checks = document.getElementsByClassName("checkbox")
   for (let check of checks) {
-    check.addEventListener("click", (event => {
-      let box = document.getElementById(event.target.id)
-      console.log(event.target)
+    check.onchange = function() {
+      let boxClass = event.target.id.split('-').pop()
 
-      let boxChanged
-
-      switch(event.target.id) {
-        case 'form-show-hardware':
-          boxChanged = 'hardware'
-          break
-        case 'form-show-software':
-          boxChanged = 'software'
-          break
-        case 'form-show-feature':
-          boxChanged = 'feature'
-          break
-        case 'form-show-error':
-          boxChanged = 'error'
-          break
-        default:
-          console.log('ERROR in renderer. initView switch')
-      }
-
-      if (box.value === 'on') {
-        // show
-        console.log(`ON: ${boxChanged} is ${box.value}`)
-        box.removeAttribute('checked')
-        console.log(box.hasAttribute('checked'))
+      lis = document.getElementsByClassName(boxClass)
+      if (check.checked) {
+        for (let li of lis) {
+          li.classList.remove('hide')
+        }
       }
       else {
-        // hide
-        console.log(`OFF: ${boxChanged} is ${box.value}`)
-        box.setAttribute('checked', 'checked')
-        console.log(box.hasAttribute('checked'))
+        for (let li of lis) {
+          li.classList.add('hide')
+        }
       }
-
-      // console.log(`${boxChanged} is ${box.value}`)
-    }))
+    }
   }
 }
 
@@ -160,25 +139,25 @@ function renderFileInfo(head, sum) {
     <ul class="checkboxes">
       <li>
         <label for="form-show-hardware">
-          <input id="form-show-hardware" name="form-show-hardware" class="checkbox" type="checkbox" checked="checked"/>
+          <input id="form-show-hardware" name="form-show-hardware" class="checkbox" type="checkbox" checked/>
           <span class="ddl-light-green-text">Show Hardware</span>
         </label>
       </li>
       <li>
         <label for="form-show-software">
-          <input id="form-show-software" name="form-show-software" class="checkbox" type="checkbox" checked="checked"/>
+          <input id="form-show-software" name="form-show-software" class="checkbox" type="checkbox" checked/>
           <span class="ddl-purple-text">Show Software</span>
         </label>
       </li>
       <li>
         <label for="form-show-feature">
-          <input id="form-show-feature" name="form-show-feature" class="checkbox" type="checkbox" checked="checked"/>
+          <input id="form-show-feature" name="form-show-feature" class="checkbox" type="checkbox" checked/>
           <span class="ddl-yellow-text">Show Features</span>
         </label>
       </li>
       <li>
         <label for="form-show-error">
-          <input id="form-show-error" name="form-show-error" class="checkbox" type="checkbox" checked="checked"/>
+          <input id="form-show-error" name="form-show-error" class="checkbox" type="checkbox" checked/>
           <span class="ddl-red-text">Show Errors</span>
         </label>
       </li>
