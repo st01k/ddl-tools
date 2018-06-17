@@ -44,25 +44,32 @@ function initView() {
   let checks = document.getElementsByClassName("checkbox")
   for (let check of checks) {
     check.onchange = function() {
+
+      if (dataListIsHidden()) {
+        // show landing-text
+      }
+
       let boxClass = event.target.id.split('-').pop()
 
       lis = document.getElementsByClassName(boxClass)
       if (check.checked) {
-        for (let li of lis) {
-          li.classList.remove('hide')
-        }
+        for (let li of lis) li.classList.remove('hide')
       }
       else {
-        for (let li of lis) {
-          li.classList.add('hide')
-        }
+        for (let li of lis) li.classList.add('hide')
       }
     }
   }
 }
 
-function hide(e){
-  e.target.style.visibility = 'hidden';
+function dataListIsHidden() {
+
+  let list = document.getElementById('data-list').children
+  for (let item of list[0].childNodes) {
+    if (item.classList.contains('hide')) continue
+    else return false
+  }
+  return true  
 }
 
 // ------------------------------------------------------------------------ IPC
