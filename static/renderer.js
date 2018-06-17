@@ -40,14 +40,17 @@ function initView() {
     accordion: false
   });
 
-  // checkbox listeners
+  // init no data display
   let checks = document.getElementsByClassName("checkbox")
+  let msg = document.createElement('h4')
+  msg.id = 'no-data'
+  msg.classList.add('grey-text', 'text-darken-3', 'landing-text', 'hide')
+  msg.innerHTML = 'no data to display'
+  document.getElementById('data-list').appendChild(msg)
+
+  // checkbox listeners
   for (let check of checks) {
     check.onchange = function() {
-
-      if (dataListIsHidden()) {
-        // show landing-text
-      }
 
       let boxClass = event.target.id.split('-').pop()
 
@@ -57,6 +60,18 @@ function initView() {
       }
       else {
         for (let li of lis) li.classList.add('hide')
+      }
+
+      if (dataListIsHidden()) {
+        // hide ul in data-list
+        // show no data msg
+        msg.classList.remove('hide')
+        console.log('data is hidden')
+      }
+      else {
+        
+        msg.classList.add('hide')
+        console.log('data is NOT hidden')
       }
     }
   }
