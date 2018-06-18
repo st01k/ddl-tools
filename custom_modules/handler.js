@@ -196,15 +196,11 @@ function buildRecord(rawRecord) {
 }
 
 function handleComment(s) {
-  // console.log('handling comment')
-
   // NOTE may need the \r
   return s.replace(/\*/g, '').replace(/\r/g, '')
 }
 
 function handleHeader(data) {
-  // console.log('handling header')
-
   let header = {
     id: data.id,
     intro: [],
@@ -240,7 +236,6 @@ function handleHeader(data) {
 }
 
 function handleSummary(data) {
-  // console.log('handling summary')
   let summary = {
     id: data.id,
     type: 'summary'
@@ -249,7 +244,6 @@ function handleSummary(data) {
 }
 
 function handleError(data) {
-  // console.log('handling error')
   let error = {
     id: data.id,
     type: 'error'
@@ -258,8 +252,6 @@ function handleError(data) {
 }
 
 function handleRecord(data) {
-  // console.log('handling record')
-
   let recData = {
     keyword: '',
     type: '',
@@ -303,19 +295,32 @@ function handleRecord(data) {
     // handle subkeywords
     else {
       let dataArySub = line.trim().split(',')
-      let tempSub = dataArySub[0].trim().split(' ')
+      let tempSub
+
+      if (dataArySub[0].length > 1) {
+        tempSub = dataArySub[0].split(' ')
+      }
+      else {
+        tempSub.push(' ')
+      }
+      
 
       let sub = {
         keyword: tempSub[0],
         params: []
       }
       dataArySub.shift()
-      dataArySub.unshift(tempSub[1])
+
+      let param1 = tempSub[1]
+      if (tempSub.length > 2) {
+        tempSub.shift()
+        param1 = tempSub.join(' ')
+      }
+      dataArySub.unshift(param1)
       
       for (let item of dataArySub) {
         sub.params.push(sanitize(item))
       }
-
       recData.subKeywords.push(sub)
     }
   }

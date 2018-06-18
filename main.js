@@ -63,7 +63,7 @@ if (process.platform === 'darwin') {
 
 ipcMain.on('file:import', (event, path) => {
   let data = handler.import(path)
-  mainWindow.webContents.send('file:handler', data)
+  mainWindow.webContents.send('file:imported', data)
 })
 
 ipcMain.on('file:export', (event, handler_data, fileName) => {

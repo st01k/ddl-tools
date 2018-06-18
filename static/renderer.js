@@ -34,20 +34,12 @@ document.getElementById("export-submit").addEventListener("click", (event => {
   ipcRenderer.send('file:export', handler_data)
 }))
 
-function initView() {
-  // record list collapse
-  var elem = document.querySelector('.collapsible.expandable');
-  var instance = M.Collapsible.init(elem, {
-    accordion: false
-  });
+datalist.init()
 
-  // init no data display
+// ------------------------------------------------------------------------ stuff that doesn't go here
+
+function initView() {
   let checks = document.getElementsByClassName("checkbox")
-  let msg = document.createElement('h4')
-  msg.id = 'no-data'
-  msg.classList.add('grey-text', 'text-darken-3', 'landing-text', 'hide')
-  msg.innerHTML = 'no data to display'
-  document.getElementById('data-list').appendChild(msg)
 
   // checkbox listeners
   for (let check of checks) {
@@ -89,24 +81,14 @@ function dataListIsHidden() {
 }
 
 // ------------------------------------------------------------------------ IPC
-ipcRenderer.on('file:handler', (event, handler) => {
-  handler_data = handler
+ipcRenderer.on('file:imported', (event, data) => {
+  handler_data = data
 
-  let header = handler.records.shift()
-  let summary = handler.records.pop()
+  let header = data.records.shift()
+  let summary = data.records.pop()
   renderFileInfo(header, summary)
-
-  let div = document.getElementById('data-list')
-  let ul = document.createElement('ul')
-  ul.classList.add('collapsible', 'expandable')
-
-  for (let record of handler.records) {
-    ul.appendChild(genListItem(record))
-  }
-  
-  div.appendChild(ul)
+  datalist.render(data)
   initView()
-  // document.getElementById('form-checkbox').classList.remove('hide')
 })
 
 ipcRenderer.on('file:exported', (event, data) => {
@@ -123,16 +105,11 @@ ipcRenderer.on('file:exported', (event, data) => {
 // clears main content and file info
 function clearContent() {
   document.getElementById('side-bar').innerHTML = ''
-  document.getElementById('data-list').innerHTML = ''
+  datalist.clear()
 }
 
 // renders file info
 function renderFileInfo(head, sum) {
-  let arr = handler_data.path.split('/')
-  // let name = arr[arr.length - 1]
-  let name = arr.pop()
-  let path = arr.join('/') + '/'
-
   let ulf = document.createElement('ul')
   let ulc = document.createElement('ul')
 
@@ -159,7 +136,6 @@ function renderFileInfo(head, sum) {
   `
   <form action="#" id="form-checkbox">
     <hr>
-    <!-- <form action="#" id="form-checkbox"> -->
     <ul class="checkboxes">
       <li>
         <label for="form-show-hardware">
@@ -195,79 +171,4 @@ function renderFileInfo(head, sum) {
   sideBar.appendChild(ulc)
   
   //TODO add summary and counts w/ color coding by type
-}
-
-// returns list item
-function genListItem(record) {
-  let li = document.createElement('li')
-  li.id = `ddl-rec-${record.id}`
-  li.classList.add(record.type)
-  
-  let head = document.createElement('div')
-  //TODO add header icon <i class="material-icons">whatshot</i>
-  let headTemplate = 
-  `
-    <div class="col s3 valign-wrapper">${record.keyword}</div>
-    <div class="col s3">
-      ${record.network}
-      <br>
-      ${record.name}
-    </div>
-    <div class="col s6">${record.description}</div>
-  `
-  head.innerHTML = headTemplate
-
-  let backgroundColor
-  switch(record.type) {
-    case 'error':
-      backgroundColor = 'ddl-red'
-      break
-    case 'hardware':
-      backgroundColor = 'ddl-green'
-      break
-    case 'software':
-      backgroundColor = 'ddl-purple'
-      break
-    case 'feature':
-      backgroundColor = 'ddl-yellow'
-      break
-    default:
-      backgroundColor = 'ddl-grey'
-      break
-  }
-  head.classList.add(backgroundColor, 'collapsible-header', 'white-text', 'center-align')
-  
-  let body = document.createElement('div')
-  body.classList.add('collapsible-body', 'ddl-dark-grey', 'white-text', 'truncate')
-  // body.innerHTML = `<span><pre>${record.subKeywords}</pre></span>`
-  body.innerHTML = buildItemBody(record)
-
-  li.appendChild(head)
-  li.appendChild(body)
-
-  return li
-}
-
-function buildItemBody(record) {
-  
-  let subs
-  for (let sub in record.subKeywords) {
-    subs += 
-    `
-      <div class="row">
-        <div class="col s3">${sub.keyword}</div>
-        <div class="col">${sub.params}</div>
-      </div>
-    `
-  }
-
-  let template = 
-  `
-    <div class="row">
-      <div class="col s6">${subs}</div>
-      <div class="col s6">comments if any</div>
-    </div>
-    <div class="row">error if any</div>
-  `
-  return template
 }

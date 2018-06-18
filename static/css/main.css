@@ -54,7 +54,7 @@ code {
   min-height: 89vh;
 }
 
-.landing-text {
+#landing-text {
  color: #161616; 
  font-weight: bolder;
 }
@@ -72,6 +72,16 @@ nav .nav-wrapper {
   border-radius: 5px;
   width:250px;
   text-align: center;
+}
+
+#data-list li .collapsible-body li {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#data-list li .param {
+  margin-left: 2px;
+  margin-right: 2px;
 }
 
 .ddl-blue {
@@ -117,10 +127,10 @@ nav .nav-wrapper {
 }
 
 .ddl-dark-grey {
-  background-color: #434857 !important;
+  background-color: #3C4456 !important;
 }
 .ddl-dark-grey-text {
-  color: #434857 !important;
+  color: #3C4456 !important;
 }
 
 /* .col {
