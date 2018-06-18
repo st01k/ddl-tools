@@ -1,3 +1,3 @@
-exports.render = function(data) {
-  console.log('rendering data from datalist module')
+exports.build = function(data) {
+  console.log('building data from datalist module')
 }

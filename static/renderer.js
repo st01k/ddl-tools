@@ -21,7 +21,7 @@ document.getElementById("import-submit").addEventListener("click", (event => {
 
   setTimeout(() => {
     ipcRenderer.send('file:import', path)
-  }, 1500)
+  }, 750)
 }))
 
 // export submit
@@ -139,18 +139,15 @@ function renderFileInfo(head, sum) {
   let ulfTemplate = 
   `
     <li>
-      <p class="sub-text ddl-light-grey-text">${path}</p>
+      <p class="sub-text ddl-light-grey-text">${handler_data.path}</p>
       <div class="row">
-        <div class="col s6"><h6>${name}</h6></div>
+        <div class="col s6"><h6>${head.networkName}</h6></div>
         <div class="col s6">
           <span id="total" class="new badge ddl-blue" data-badge-caption="records">
             ${handler_data.records.length}
           </span>
         </div>
       </div>
-    </li>
-    <li>
-      <p>${head.networkName}</p>
     </li>
     <li>
       <p>${head.ncmName}</p>
