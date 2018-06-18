@@ -197,7 +197,8 @@ function buildRecord(rawRecord) {
 
 function handleComment(s) {
   // NOTE may need the \r
-  return s.replace(/\*/g, '').replace(/\r/g, '')
+  return s.replace(/\*/g, '')
+  // return s.replace(/\*/g, '').replace(/\r/g, '')
 }
 
 function handleHeader(data) {

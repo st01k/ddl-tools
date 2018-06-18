@@ -152,13 +152,18 @@ function buildListItemBodyData(subs) {
 
     for (let sub of subs) {
       let li = document.createElement('li')
+      li.innerText = `${sub.keyword}: `
 
-      let params = ''
       for (let param of sub.params) {
-        params += `<span class="new badge param" data-badge-caption="">${param}</span>`
+        let badge = document.createElement('span')
+        badge.classList.add('new', 'badge', 'param', 'ddl-light-grey')
+        badge.setAttribute('data-badge-caption', '')
+        badge.innerText = param
+        li.appendChild(badge)
+        // params += `<span class="new badge param ddl-light-grey" data-badge-caption="">${param}</span>`
       }
 
-      li.innerHTML = `${sub.keyword}: ${params}`
+      // li.innerHTML = `${sub.keyword}: ${params}`
       ul.appendChild(li)
     }  
     data.appendChild(ul)
@@ -171,14 +176,24 @@ function buildListItemBodyData(subs) {
 }
 
 function buildListItemBodyComments(comms) {
-  let comments = document.createElement('div')
+  let comments = document.createElement('pre')
   comments.classList.add('col', 's12')
 
-  let template = 
-  `
-    item comments
-  `
-  comments.innerHTML = template
+  let code = document.createElement('code')
+  
+  let template = ''
+
+  if (comms) {
+    for (let line of comms) {
+      template += `${line}`
+    }
+  }
+  else {
+    template += `no comments`
+  }
+  
+  code.innerText = template
+  comments.appendChild(code)
   return comments
 }
 
@@ -188,6 +203,7 @@ function buildListItemBodyErrors(errs) {
 
   let template = 
   `
+    <hr>
     item errors
   `
   errors.innerHTML = template
