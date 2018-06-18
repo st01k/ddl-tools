@@ -1,5 +1,6 @@
 const electron = require('electron')
 const { ipcRenderer } = electron
+const datalist = require('./js/datalist')
 
 let handler_data
 
@@ -209,10 +210,13 @@ function genListItem(record) {
   //TODO add header icon <i class="material-icons">whatshot</i>
   let headTemplate = 
   `
-    <div class="col s2">${record.keyword}</div>
-    <div class="col s3">${record.network}</div>
-    <div class="col s3">${record.name}</div>
-    <div class="col s5">${record.description}</div>
+    <div class="col s3 valign-wrapper">${record.keyword}</div>
+    <div class="col s3">
+      ${record.network}
+      <br>
+      ${record.name}
+    </div>
+    <div class="col s6">${record.description}</div>
   `
   head.innerHTML = headTemplate
 
@@ -231,17 +235,42 @@ function genListItem(record) {
       backgroundColor = 'ddl-yellow'
       break
     default:
-      backgroundColor = 'ddl-purple'
+      backgroundColor = 'ddl-grey'
       break
   }
   head.classList.add(backgroundColor, 'collapsible-header', 'white-text', 'center-align')
   
   let body = document.createElement('div')
   body.classList.add('collapsible-body', 'ddl-dark-grey', 'white-text', 'truncate')
-  body.innerHTML = `<span><pre>${record.subKeywords}</pre></span>`
+  // body.innerHTML = `<span><pre>${record.subKeywords}</pre></span>`
+  body.innerHTML = buildItemBody(record)
 
   li.appendChild(head)
   li.appendChild(body)
 
   return li
+}
+
+function buildItemBody(record) {
+  
+  let subs
+  for (let sub in record.subKeywords) {
+    subs += 
+    `
+      <div class="row">
+        <div class="col s3">${sub.keyword}</div>
+        <div class="col">${sub.params}</div>
+      </div>
+    `
+  }
+
+  let template = 
+  `
+    <div class="row">
+      <div class="col s6">${subs}</div>
+      <div class="col s6">comments if any</div>
+    </div>
+    <div class="row">error if any</div>
+  `
+  return template
 }
