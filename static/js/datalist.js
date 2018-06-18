@@ -62,8 +62,6 @@ function showElement(el) {
 
 // ------------------------------------------------------------------------------------ construction
 function build(data) {
-  console.log('building data from datalist module')
-
   let list = document.getElementById('data-list')
   list.classList.add('collapsible', 'expandable')
 
@@ -143,7 +141,6 @@ function buildListItemBody(subs, comms, errs) {
 }
 
 function buildListItemBodyData(subs) {
-  
   let data = document.createElement('div')
   data.classList.add('col', 's12')
 
@@ -154,16 +151,18 @@ function buildListItemBodyData(subs) {
       let li = document.createElement('li')
       li.innerText = `${sub.keyword}: `
 
+      let revParams = []
       for (let param of sub.params) {
+        revParams.unshift(param)
+      }
+
+      for (let param of revParams) {
         let badge = document.createElement('span')
         badge.classList.add('new', 'badge', 'param', 'ddl-light-grey')
         badge.setAttribute('data-badge-caption', '')
         badge.innerText = param
         li.appendChild(badge)
-        // params += `<span class="new badge param ddl-light-grey" data-badge-caption="">${param}</span>`
       }
-
-      // li.innerHTML = `${sub.keyword}: ${params}`
       ul.appendChild(li)
     }  
     data.appendChild(ul)
@@ -205,6 +204,8 @@ function buildListItemBodyErrors(errs) {
   `
     <hr>
     item errors
+    <br>
+    - not yet implemented -
   `
   errors.innerHTML = template
   return errors
