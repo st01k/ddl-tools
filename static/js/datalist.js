@@ -167,8 +167,11 @@ function buildListItemBodyData(subs) {
     }  
     data.appendChild(ul)
   }
+  //FIXME - not printing bc there is always a sub even if empty
   else {
-    data.innerHTML = `<p>no sub keywords</p>`
+    let msg = document.createElement('p')
+    msg.innerText = 'no sub keywords'
+    data.appendChild(msg)
   }
 
   return data
