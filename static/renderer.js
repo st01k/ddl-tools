@@ -109,7 +109,11 @@ ipcRenderer.on('file:handler', (event, handler) => {
 })
 
 ipcRenderer.on('file:exported', (event, data) => {
-  var toastHTML = `<span>exported ${data}</span><button class="btn-flat toast-action">SHOW</button>`
+  var toastHTML = 
+  `
+  <span>exported ${data}</span>
+  <button class="btn-flat toast-action">SHOW</button>
+  `
   //TODO hook up open directory of new file
   M.toast({html: toastHTML});
 })
@@ -162,7 +166,7 @@ function renderFileInfo(head, sum) {
       <li>
         <label for="form-show-hardware">
           <input id="form-show-hardware" name="form-show-hardware" class="checkbox" type="checkbox" checked/>
-          <span class="ddl-light-green-text">Show Hardware</span>
+          <span class="ddl-green-text">Show Hardware</span>
         </label>
       </li>
       <li>

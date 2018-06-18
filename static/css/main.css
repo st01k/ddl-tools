@@ -7,7 +7,7 @@ body {
 }
 
 hr {
-  border-color: #64b5f6;
+  border-color: #49494F;
 }
 
 .modal:focus {
@@ -82,31 +82,31 @@ nav .nav-wrapper {
 }
 
 .ddl-yellow {
-  background-color: #817660 !important;
+  background-color: #AA9639 !important;
 }
 .ddl-yellow-text {
-  color: #A89D85 !important;
+  color: #AA9639 !important;
 }
 
 .ddl-purple {
-  background-color: #4A4458 !important;
+  background-color: #403075 !important;
 }
 .ddl-purple-text {
-  color: #645E73 !important;
+  color: #605292 !important;
 }
 
 .ddl-red {
-  background-color: #72545E !important;
+  background-color: #AA6B39 !important;
 }
 .ddl-red-text {
-  color: #947580 !important;
+  color: #AA6B39 !important;
 }
 
 .ddl-green {
-  background-color: #3B4C4F !important;
+  background-color: #226764 !important;
 }
 .ddl-green-text {
-  color: #526467 !important;
+  color: #41817F !important;
 }
 
 .ddl-light-grey {
