@@ -115,7 +115,7 @@ function extract(raw) {
       // push non-empty records to array
       if (rec) {
         if (rec.type !== 'empty') records.push(rec)
-        console.log(rec)
+        // console.log(rec)
       }
 
       // reset temp data holder
@@ -145,10 +145,10 @@ function initRecord(id, raw) {
           type = TYPES[2] // summary
           break
         case '~':
-          type = TYPES[3] // global error
+          type = TYPES[3] // semantic error
           break
         default: 
-          type = TYPES[4] // record - reassign on build record
+          type = TYPES[4] // record (temp) - reassign specifically on build record
           break
       }
     }
@@ -180,7 +180,8 @@ function buildRecord(rawRecord) {
       break
 
     case TYPES[3]:
-      cleanRecord = handleError(rawRecord)
+      // assign error to previous keyword
+      cleanRecord = handleErrorSemantic(rawRecord)
       break
 
     case TYPES[4]:
@@ -244,7 +245,7 @@ function handleSummary(data) {
   return summary
 }
 
-function handleError(data) {
+function handleErrorSemantic(data) {
   let error = {
     id: data.id,
     type: 'error'
@@ -272,10 +273,10 @@ function handleRecord(data) {
       continue
     }
 
-    // handle error
+    // handle syntax error
     if (line.charAt(0) === '~') {
       let error = {
-
+        msg: line.substr(1)
       }
 
       recData.errors.push(error)
