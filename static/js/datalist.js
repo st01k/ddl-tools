@@ -215,7 +215,7 @@ function buildListItemBodyComments(comms) {
 
 function buildListItemBodyErrors(errs) {
   let errors = document.createElement('div')
-  errors.classList.add('col', 's12')
+  errors.classList.add('col', 's9')
 
   let subkeyword = document.createElement('p')
   let message = document.createElement('p')

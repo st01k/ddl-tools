@@ -113,10 +113,8 @@ function extract(raw) {
       rec = buildRecord(rec)
 
       if (rec) {
-        console.log(`${rec.type}`)
         // push error to previous record's errors
         if (rec.type === 'error') {
-          console.log(`--------------------------------- semantic error: ${rec}`)
           let prevRecord = records.pop()
           prevRecord.errors.push(rec)
           records.push(prevRecord)
@@ -300,10 +298,7 @@ function handleRecord(data) {
 
     // handle syntax error
     if (line.charAt(0) === '~') {
-      // extract subkeyword and message
-      console.log(prevSubkeyword)
       let error = handleError(line, prevSubkeyword)
-      console.log(`--------------------------------- syntax error: ${error}`)
       recData.errors.push(error)
       continue
     }
