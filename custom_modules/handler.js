@@ -262,12 +262,16 @@ function handleError(data, subkeyword) {
   }
 
   if (subkeyword === '') {
-    // handle semantic
-    error.msg = data.raw
+    // semantic error
+    let s = ''
+    for (let item of data.raw) {
+      s += `${sanitize(item)}\n`
+    }
+    error.msg = s
   }
   else {
+    // syntax error
     error.msg = data
-    // handle syntax
   }
   
   return error

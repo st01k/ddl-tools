@@ -77,7 +77,7 @@ function buildListItem(r) {
   li.id = `ddl-rec-${r.id}`
   li.classList.add(r.type)
 
-  let head = buildListItemHead(r.type, r.keyword, r.network, r.name, r.description)
+  let head = buildListItemHead(r.type, r.keyword, r.network, r.name, r.description, r.errors)
   let body = buildListItemBody(r.subKeywords, r.comments, r.errors)
 
   li.appendChild(head)
@@ -86,9 +86,9 @@ function buildListItem(r) {
   return li
 }
 
-function buildListItemHead(type, kw, net, name, desc) {
+function buildListItemHead(type, kw, net, name, desc, errors) {
   let head = document.createElement('div')
-  let bgColor = bgColorSwitch(type)
+  let bgColor = (errors.length > 0) ? 'ddl-red' : bgColorSwitch(type)
 
   let template = 
   `
@@ -107,9 +107,6 @@ function buildListItemHead(type, kw, net, name, desc) {
 
 function bgColorSwitch(type) {
   switch(type) {
-    case 'error':
-      return 'ddl-red'
-      break
     case 'hardware':
       return 'ddl-green'
       break
@@ -199,19 +196,39 @@ function buildListItemBodyComments(comms) {
   return comments
 }
 
+// function buildListItemBodyErrors(errs) {
+//   let errors = document.createElement('div')
+//   errors.classList.add('col', 's12', 'center-align')
+
+//   let template = ''
+
+//   if (errs) {
+//     for (let err of errs) {
+//       console.log(err)
+//       template += `<p>${err.type} | ${err.msg} | ${err.subkeyword}</p>`
+//     }
+//   }
+
+//   errors.innerHTML = template
+//   return errors
+// }
+
 function buildListItemBodyErrors(errs) {
   let errors = document.createElement('div')
-  errors.classList.add('col', 's12', 'center-align')
+  errors.classList.add('col', 's12')
 
-  let template = ''
+  let subkeyword = document.createElement('p')
+  let message = document.createElement('p')
 
   if (errs) {
     for (let err of errs) {
-      console.log(err)
-      template += `<p>${err.type} | ${err.msg} | ${err.subkeyword}</p>`
+      subkeyword.innerText = err.subkeyword
+      message.innerText = err.msg
     }
   }
 
-  errors.innerHTML = template
+  errors.appendChild(subkeyword)
+  errors.appendChild(message)
+
   return errors
 }
