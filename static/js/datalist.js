@@ -207,10 +207,11 @@ function buildListItemBodyErrors(errs) {
 
   if (errs) {
     for (let err of errs) {
-    template += `<p>${err.type} | ${err.keyword}| ${err.subkeyword}</p>`
+      console.log(err)
+      template += `<p>${err.type} | ${err.msg} | ${err.subkeyword}</p>`
     }
   }
-  
+
   errors.innerHTML = template
   return errors
 }

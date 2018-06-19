@@ -105,8 +105,6 @@ function extract(raw) {
   let records = []
   let raw_data = []
 
-  let prevRecord
-
   for (const line of lines) {
     // create new record if empty line is found
     if (line.match(/^\s*$/)) {
@@ -119,7 +117,9 @@ function extract(raw) {
         // push error to previous record's errors
         if (rec.type === 'error') {
           console.log(`--------------------------------- semantic error: ${rec}`)
+          let prevRecord = records.pop()
           prevRecord.errors.push(rec)
+          records.push(prevRecord)
         }
   
         // push non-empty records to array
@@ -254,13 +254,22 @@ function handleSummary(data) {
   return summary
 }
 
-function handleError(msg, subkeyword) {
+function handleError(data, subkeyword) {
   let error = {
     type: TYPES[3],
-    msg: msg,
+    msg: '',
     subkeyword: subkeyword
   }
 
+  if (subkeyword === '') {
+    // handle semantic
+    error.msg = data.raw
+  }
+  else {
+    error.msg = data
+    // handle syntax
+  }
+  
   return error
 }
 
@@ -277,8 +286,7 @@ function handleRecord(data) {
     errors: []
   }
 
-  let prevLine
-
+  let prevSubkeyword
   for (let line of data.raw) {
     // handle comment
     if (line.charAt(0) === '*') {
@@ -288,7 +296,9 @@ function handleRecord(data) {
 
     // handle syntax error
     if (line.charAt(0) === '~') {
-      let error = handleError(line, 'test subkeyword')
+      // extract subkeyword and message
+      console.log(prevSubkeyword)
+      let error = handleError(line, prevSubkeyword)
       console.log(`--------------------------------- syntax error: ${error}`)
       recData.errors.push(error)
       continue
@@ -334,6 +344,7 @@ function handleRecord(data) {
       for (let item of dataArySub) {
         sub.params.push(sanitize(item))
       }
+      prevSubkeyword = sub.keyword
       recData.subKeywords.push(sub)
     }
   }
