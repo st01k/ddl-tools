@@ -84,8 +84,8 @@ function dataListIsHidden() {
 ipcRenderer.on('file:imported', (event, data) => {
   handler_data = data
 // console.log(`before removing header and summary: ${handler_data}`)
-  let header = handler_data.records.shift()
-  let summary = handler_data.records.pop()
+  let header = data.records.shift()
+  let summary = data.records.pop()
   renderFileInfo(header, summary)
   datalist.render(data)
   initView()

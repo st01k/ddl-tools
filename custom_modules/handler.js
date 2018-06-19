@@ -105,6 +105,8 @@ function extract(raw) {
   let records = []
   let raw_data = []
 
+  let prevRecord
+
   for (const line of lines) {
     // create new record if empty line is found
     if (line.match(/^\s*$/)) {
@@ -112,10 +114,19 @@ function extract(raw) {
       let rec = initRecord(cnt, raw_data)
       rec = buildRecord(rec)
 
-      // push non-empty records to array
       if (rec) {
-        if (rec.type !== 'empty') records.push(rec)
-        // console.log(rec)
+        console.log(`${rec.type}`)
+        // push error to previous record's errors
+        if (rec.type === 'error') {
+          console.log(`--------------------------------- semantic error: ${rec}`)
+          prevRecord.errors.push(rec)
+        }
+  
+        // push non-empty records to array
+        else if (rec.type !== 'empty') {
+          prevRecord = rec
+          records.push(rec)
+        }
       }
 
       // reset temp data holder
@@ -134,32 +145,32 @@ function extract(raw) {
 function initRecord(id, raw) {
   let type = TYPES[0] // empty
 
-  // assign type to record
-  for (let i = 0; i <= raw.length - 1; i++) {
-    if (raw[i].charAt(0) === '@') type = TYPES[1] // header
-
-    if (i === 0) {
-
-      switch(raw[i].charAt(0)) {
-        case '*':
-          type = TYPES[2] // summary
-          break
-        case '~':
-          type = TYPES[3] // semantic error
-          break
-        default: 
-          type = TYPES[4] // record (temp) - reassign specifically on build record
-          break
-      }
-    }
-  }
-
   let record = {
     id: id,
     type: type,
     raw: raw
   }
 
+  // assign type to record
+  for (let i = 0; i <= raw.length - 1; i++) {
+    if (i === 0) {
+
+      switch(raw[i].charAt(0)) {
+        case '*':
+          record.type = TYPES[2] // summary
+          break
+        case '~':
+          record.type = TYPES[3] // semantic error
+          break
+        default: 
+          record.type = TYPES[4] // record (temp) - reassign specifically on build record
+          break
+      }
+    }
+    else if (raw[i].charAt(0) === '@') {
+      record.type = TYPES[1] // header
+    }
+  }
   return record
 }
 
@@ -180,8 +191,7 @@ function buildRecord(rawRecord) {
       break
 
     case TYPES[3]:
-      // assign error to previous keyword
-      cleanRecord = handleErrorSemantic(rawRecord)
+      cleanRecord = handleError(rawRecord, '')
       break
 
     case TYPES[4]:
@@ -205,6 +215,7 @@ function handleComment(s) {
 function handleHeader(data) {
   let header = {
     id: data.id,
+    type: TYPES[1],
     intro: [],
     date: null,
     source: '',
@@ -224,13 +235,11 @@ function handleHeader(data) {
     // TODO handle decompile source
     
     if (line.charAt(0) === '@') {
-      // handle file type
+      // extract file info
       let dataAry = line.split(',')
       let temp = dataAry[0].split(' ')
       header.fileType = temp[0].replace(/@/g, '')
-      // handle network name
       header.networkName = sanitize(temp[1])
-      // handle ncmName
       header.ncmName = sanitize(dataAry[1])
     }
   }
@@ -240,23 +249,25 @@ function handleHeader(data) {
 function handleSummary(data) {
   let summary = {
     id: data.id,
-    type: 'summary'
+    type: TYPES[2]
   }
   return summary
 }
 
-function handleErrorSemantic(data) {
+function handleError(msg, subkeyword) {
   let error = {
-    id: data.id,
-    type: 'error'
+    type: TYPES[3],
+    msg: msg,
+    subkeyword: subkeyword
   }
+
   return error
 }
 
 function handleRecord(data) {
   let recData = {
     keyword: '',
-    type: '',
+    type: TYPES[4],
     network: '',
     id: data.id,
     name: '',
@@ -265,6 +276,8 @@ function handleRecord(data) {
     comments: [],
     errors: []
   }
+
+  let prevLine
 
   for (let line of data.raw) {
     // handle comment
@@ -275,10 +288,8 @@ function handleRecord(data) {
 
     // handle syntax error
     if (line.charAt(0) === '~') {
-      let error = {
-        msg: line.substr(1)
-      }
-
+      let error = handleError(line, 'test subkeyword')
+      console.log(`--------------------------------- syntax error: ${error}`)
       recData.errors.push(error)
       continue
     }

@@ -203,13 +203,14 @@ function buildListItemBodyErrors(errs) {
   let errors = document.createElement('div')
   errors.classList.add('col', 's12', 'center-align')
 
-  let template = 
-  `
-    <hr>
-    item errors
-    <br>
-    - not yet implemented -
-  `
+  let template = ''
+
+  if (errs) {
+    for (let err of errs) {
+    template += `<p>${err.type} | ${err.keyword}| ${err.subkeyword}</p>`
+    }
+  }
+  
   errors.innerHTML = template
   return errors
 }
