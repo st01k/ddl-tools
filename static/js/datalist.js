@@ -182,13 +182,10 @@ function buildListItemBodyComments(comms) {
   
   let template = ''
 
-  if (comms) {
+  if (comms.length > 0) {
     for (let line of comms) {
       template += `${line}`
     }
-  }
-  else {
-    template += `no comments`
   }
   
   code.innerText = template
@@ -196,31 +193,16 @@ function buildListItemBodyComments(comms) {
   return comments
 }
 
-// function buildListItemBodyErrors(errs) {
-//   let errors = document.createElement('div')
-//   errors.classList.add('col', 's12', 'center-align')
-
-//   let template = ''
-
-//   if (errs) {
-//     for (let err of errs) {
-//       console.log(err)
-//       template += `<p>${err.type} | ${err.msg} | ${err.subkeyword}</p>`
-//     }
-//   }
-
-//   errors.innerHTML = template
-//   return errors
-// }
-
 function buildListItemBodyErrors(errs) {
   let errors = document.createElement('div')
   errors.classList.add('col', 's9')
 
   let subkeyword = document.createElement('p')
+  subkeyword.classList.add('ddl-red-text')
+
   let message = document.createElement('p')
 
-  if (errs) {
+  if (errs.length > 0) {
     for (let err of errs) {
       subkeyword.innerText = err.subkeyword
       message.innerText = err.msg
