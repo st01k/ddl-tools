@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var instances = M.Modal.init(elems);
 });
 
-// clear button
+// reload button
 document.getElementById('reload').addEventListener('click', (event => {
   clearContent()
 }))
@@ -74,6 +74,7 @@ ipcRenderer.on('file:exported', (event, data) => {
 // ------------------------------------------------------------------- utility
 // clears main content and file info
 function clearContent() {
+  handlerData = null
   sidebar.clear()
   datalist.clear()
 }

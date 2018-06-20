@@ -1,3 +1,5 @@
+const datalist = require('./datalist')
+
 // ------------------------------------------------------------------------------------ exports
 exports.clear = function() {
   document.getElementById('side-bar').innerHTML = ''
@@ -103,12 +105,7 @@ function initView() {
       }
 
       if (dataListIsHidden()) {
-        // hide ul in data-list
-        // show no data msg
-        msg.classList.remove('hide')
-      }
-      else {
-        msg.classList.add('hide')
+        datalist.hideWithMsg('no data')
       }
     }
   }

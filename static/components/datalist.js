@@ -21,7 +21,7 @@ exports.clear = function() {
   showElement(msgContainer)
 }
 
-exports.hideMsg = function(msg) {
+exports.hideWithMsg = function(msg) {
   let _msg = msg || 'no data'
   
   let list = document.getElementById('data-list')
@@ -33,6 +33,7 @@ exports.hideMsg = function(msg) {
 exports.show = function() {
   let list = document.getElementById('data-list')
   showElement(list)
+  hideElement(document.getElementById('empty-list'))
 }
 
 exports.render = function(data) {
