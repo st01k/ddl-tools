@@ -103,15 +103,15 @@ function buildListItemHead(type, kw, net, name, desc, errorsLength) {
 
   let template = 
   `
-    <div class="col s2 valign-wrapper">
+    <div class="col s2">
       <span class="badge new left ddl-transparent" data-badge-caption="">${++cnt}</span>
     </div>
-    <div class="col s2 valign-wrapper">${kw}</div>
+    <div class="col s2">${kw}</div>
     <div class="col s2">${net}</div>
     <div class="col s2">${name}</div>
     <div class="col s4">${desc}</div>
   `
-  head.classList.add(bgColor, 'collapsible-header', 'white-text', 'center-align')
+  head.classList.add(bgColor, 'collapsible-header', 'white-text', 'center-align', 'valign-wrapper')
   head.innerHTML = template
   return head
 }
