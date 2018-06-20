@@ -176,7 +176,7 @@ function buildListItemBodyData(subs) {
   }
   else {
     let msg = document.createElement('p')
-    msg.innerText = 'no sub keywords'
+    msg.innerText = 'no data attached to object'
     data.appendChild(msg)
   }
 
