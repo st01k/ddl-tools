@@ -77,7 +77,9 @@ function buildListItem(r) {
   li.id = `ddl-rec-${r.id}`
   li.classList.add(r.type)
 
-  let head = buildListItemHead(r.type, r.keyword, r.network, r.name, r.description, r.errors)
+  if (r.errors.length > 0) li.classList.add('error')
+
+  let head = buildListItemHead(r.type, r.keyword, r.network, r.name, r.description, r.errors.length)
   let body = buildListItemBody(r.subKeywords, r.comments, r.errors)
 
   li.appendChild(head)
@@ -86,18 +88,18 @@ function buildListItem(r) {
   return li
 }
 
-function buildListItemHead(type, kw, net, name, desc, errors) {
+function buildListItemHead(type, kw, net, name, desc, errorsLength) {
   let head = document.createElement('div')
-  let bgColor = (errors.length > 0) ? 'ddl-red' : bgColorSwitch(type)
+  let bgColor = bgColorSwitch(type)
+  if (errorsLength > 0) {
+    bgColor = bgColorSwitch('error')
+  }
 
   let template = 
   `
     <div class="col s3 valign-wrapper">${kw}</div>
-    <div class="col s3">
-      ${net}
-      <br>
-      ${name}
-    </div>
+    <div class="col s3">${net}</div>
+    <div class="col s3">${name}</div>
     <div class="col s6">${desc}</div>
   `
   head.classList.add(bgColor, 'collapsible-header', 'white-text', 'center-align')
@@ -107,6 +109,9 @@ function buildListItemHead(type, kw, net, name, desc, errors) {
 
 function bgColorSwitch(type) {
   switch(type) {
+    case 'error':
+      return 'ddl-red'
+      break
     case 'hardware':
       return 'ddl-green'
       break
@@ -141,13 +146,14 @@ function buildListItemBodyData(subs) {
   let data = document.createElement('div')
   data.classList.add('col', 's12')
 
-  if (subs) {
+  if (subs.length > 0) {
     let ul = document.createElement('ul')
 
     for (let sub of subs) {
       let li = document.createElement('li')
       li.innerText = `${sub.keyword}: `
 
+      // reverse params for right float
       let revParams = []
       for (let param of sub.params) {
         revParams.unshift(param)
@@ -164,7 +170,6 @@ function buildListItemBodyData(subs) {
     }  
     data.appendChild(ul)
   }
-  //FIXME - not printing bc there is always a sub even if empty
   else {
     let msg = document.createElement('p')
     msg.innerText = 'no sub keywords'
@@ -204,8 +209,16 @@ function buildListItemBodyErrors(errs) {
 
   if (errs.length > 0) {
     for (let err of errs) {
-      subkeyword.innerText = err.subkeyword
-      message.innerText = err.msg
+      // syntax
+      if (err.subkeyword !== '') {
+        subkeyword.innerText = err.subkeyword
+        message.innerText = err.msg.substring(1, err.msg.length - 1)
+      }
+      // semantic
+      else {
+        subkeyword.innerText = 'OBJECT ERROR'
+        message.innerText = err.msg.substring(10, err.msg.length - 1)
+      }
     }
   }
 

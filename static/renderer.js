@@ -21,7 +21,7 @@ document.getElementById("import-submit").addEventListener("click", (event => {
 
   setTimeout(() => {
     ipcRenderer.send('file:import', path)
-  }, 750)
+  }, 2000)
 }))
 
 // export submit
