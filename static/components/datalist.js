@@ -1,3 +1,5 @@
+cnt = 0
+
 // -------------------------------------------------------------------- exports
 exports.init = function() {
   let list = document.getElementById('data-list')
@@ -14,7 +16,7 @@ exports.clear = function() {
   let list = document.getElementById('data-list')
   list.innerHTML = ''
   hideElement(list)
-
+  cnt = 0
   let msgContainer = document.getElementById('empty-list')
   let msg = "select a file by clicking 'import'"  
   msgContainer.innerText = msg
@@ -101,10 +103,13 @@ function buildListItemHead(type, kw, net, name, desc, errorsLength) {
 
   let template = 
   `
-    <div class="col s3 valign-wrapper">${kw}</div>
-    <div class="col s3">${net}</div>
-    <div class="col s3">${name}</div>
-    <div class="col s6">${desc}</div>
+    <div class="col s2">
+      <span class="badge new left ddl-dark-grey" data-badge-caption="">${++cnt}</span>
+    </div>
+    <div class="col s2 valign-wrapper">${kw}</div>
+    <div class="col s2">${net}</div>
+    <div class="col s2">${name}</div>
+    <div class="col s4">${desc}</div>
   `
   head.classList.add(bgColor, 'collapsible-header', 'white-text', 'center-align')
   head.innerHTML = template
