@@ -104,7 +104,7 @@ function buildListItemHead(type, kw, net, name, desc, errorsLength) {
   let template = 
   `
     <div class="col s2">
-      <span class="badge new left ddl-dark-grey" data-badge-caption="">${++cnt}</span>
+      <span class="badge new left ddl-transparent" data-badge-caption="">${++cnt}</span>
     </div>
     <div class="col s2 valign-wrapper">${kw}</div>
     <div class="col s2">${net}</div>
@@ -181,7 +181,7 @@ function buildListItemBodyData(subs) {
   }
   else {
     let msg = document.createElement('p')
-    msg.innerText = 'no data attached to object'
+    msg.innerText = 'no data attached to this object'
     data.appendChild(msg)
   }
 
@@ -220,12 +220,12 @@ function buildListItemBodyErrors(errs) {
     for (let err of errs) {
       // syntax
       if (err.subkeyword !== '') {
-        subkeyword.innerText = err.subkeyword
+        subkeyword.innerText = `ERROR IN ${err.subkeyword}`
         message.innerText = err.msg.substring(1, err.msg.length - 1)
       }
       // semantic
       else {
-        subkeyword.innerText = 'OBJECT ERROR'
+        subkeyword.innerText = 'ERROR IN OBJECT'
         message.innerText = err.msg.substring(10, err.msg.length - 1)
       }
     }

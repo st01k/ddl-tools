@@ -133,6 +133,11 @@ nav .nav-wrapper {
   color: #3C4456 !important;
 }
 
+.ddl-transparent {
+  background-color: transparent !important;
+  outline: solid 1px whitesmoke;
+}
+
 /* .col {
   border: 1px dashed red !important;
 } */
