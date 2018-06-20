@@ -62,14 +62,18 @@ ipcRenderer.on('file:imported', (event, data) => {
   datalist.render(data)
 })
 
-ipcRenderer.on('file:exported', (event, data) => {
+ipcRenderer.on('file:exported', (event, path) => {
+  let filename = path.split('/').pop()
   var toastHTML = 
   `
-  <span>exported ${data}</span>
-  <button class="btn-flat toast-action">SHOW</button>
+  <span>exported ${filename}</span>
+  <button id="show-file" class="btn-flat toast-action">SHOW</button>
   `
-  //TODO hook up open directory of new file
+  
   M.toast({html: toastHTML});
+  document.getElementById('show-file').addEventListener('click', (event) => {
+    ipcRenderer.send('file:show', path)
+  })
 })
 
 // ------------------------------------------------------------------- utility

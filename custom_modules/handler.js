@@ -63,7 +63,25 @@ const KEYWORDS = {
     {ZONE: 'ZONE for a FIRE controller', type: 'software'}
   ]
 }
-// enum
+// const SUBKEYWORDS = {
+//   pointtype,
+//   pointstr,
+//   hardware,
+//   graphics,
+//   n2openhw,
+//   units,
+//   alarmset,
+//   report,
+//   init,
+//   reset,
+//   timer,
+//   model,
+//   display,
+//   format,
+//   feedback,
+//   address,
+//   associnp
+// }
 
 module.exports = {
   file: '',
@@ -95,7 +113,7 @@ module.exports = {
       console.log(`exported file saved to ${saveFile}`)
     });
 
-    return filename
+    return saveFile
   }
 }
 

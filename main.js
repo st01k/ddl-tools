@@ -70,8 +70,12 @@ ipcMain.on('file:import', (event, path) => {
 })
 
 ipcMain.on('file:export', (event, handler_data) => {
-  let data = handler.export(handler_data)
-  mainWindow.webContents.send('file:exported', data)
+  let path = handler.export(handler_data)
+  mainWindow.webContents.send('file:exported', path)
+})
+
+ipcMain.on('file:show', (event, path) => {
+  electron.shell.showItemInFolder(path)
 })
 
 ipcMain.on('power:off', (event) => {
