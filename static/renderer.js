@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var instances = M.Modal.init(elems);
 });
 
+// pdf link
 document.getElementById('pdf').addEventListener('click', (event => {
   ipcRenderer.send('pdf:open')
 }))
@@ -52,7 +53,7 @@ document.getElementById("power").addEventListener("click", (event => {
 
 datalist.init()
 
-// ------------------------------------------------------------------------ IPC
+// -------------------------------------------------------------- IPC listeners
 ipcRenderer.on('file:imported', (event, data) => {
   handlerData = data
 
@@ -80,7 +81,7 @@ ipcRenderer.on('file:exported', (event, path) => {
   })
 })
 
-// ------------------------------------------------------------------- utility
+// ----------------------------------------------------------------- utilities
 // clears main content and file info
 function clearContent() {
   handlerData = null
