@@ -3,10 +3,11 @@ exports.init = function() {
   let list = document.getElementById('data-list')
   hideElement(list)
 
-  let msgElement = document.getElementById('empty-list')
-  let msg = "select a file by clicking 'import'"
-  msgElement.classList.add('grey-text', 'text-darken-3')  
-  msgElement.innerText = msg
+  let msgContainer = document.getElementById('empty-list')
+  msgContainer.classList.add('grey-text', 'text-darken-3')  
+  
+  let msg = "select a file by clicking 'import'"  
+  msgContainer.innerText = msg
 }
 
 exports.clear = function() {
@@ -14,8 +15,10 @@ exports.clear = function() {
   list.innerHTML = ''
   hideElement(list)
 
-  let msgElement = document.getElementById('empty-list')
-  msgElement.innerText = ''
+  let msgContainer = document.getElementById('empty-list')
+  let msg = "select a file by clicking 'import'"  
+  msgContainer.innerText = msg
+  showElement(msgContainer)
 }
 
 exports.hideMsg = function(msg) {
