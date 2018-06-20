@@ -103,7 +103,7 @@ function buildListItemHead(type, kw, net, name, desc, errorsLength) {
 
   let template = 
   `
-    <div class="col s2">
+    <div class="col s2 valign-wrapper">
       <span class="badge new left ddl-transparent" data-badge-caption="">${++cnt}</span>
     </div>
     <div class="col s2 valign-wrapper">${kw}</div>
