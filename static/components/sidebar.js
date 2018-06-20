@@ -70,6 +70,12 @@ function buildPopData(data) {
         <span class="ddl-yellow-text">Show Features</span>
       </label>
     </li>
+    <li>
+      <label for="show-error">
+        <input id="show-error" name="show-error" class="checkbox" type="checkbox" checked/>
+        <span class="ddl-red-text">Show Errors</span>
+      </label>
+    </li>
   </ul>
   `
 
