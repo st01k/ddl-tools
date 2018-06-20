@@ -1,6 +1,7 @@
 const electron = require('electron')
 const { ipcRenderer } = electron
-const datalist = require('./js/datalist')
+const datalist = require('./components/datalist')
+const sidebar = require('./components/sidebar')
 
 let handler_data
 
@@ -9,6 +10,12 @@ document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.modal');
   var instances = M.Modal.init(elems);
 });
+
+// clear
+document.getElementById('reload').addEventListener('click', (event => {
+  clearContent()
+  datalist.init()
+}))
 
 // import submit
 document.getElementById("import-submit").addEventListener("click", (event => {
@@ -32,6 +39,10 @@ document.getElementById("export-submit").addEventListener("click", (event => {
   }
   
   ipcRenderer.send('file:export', handler_data)
+}))
+
+document.getElementById("power").addEventListener("click", (event => {  
+  ipcRenderer.send('power:off')
 }))
 
 datalist.init()

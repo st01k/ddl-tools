@@ -66,7 +66,11 @@ ipcMain.on('file:import', (event, path) => {
   mainWindow.webContents.send('file:imported', data)
 })
 
-ipcMain.on('file:export', (event, handler_data, fileName) => {
-  let data = handler.export(handler_data, fileName)
+ipcMain.on('file:export', (event, handler_data) => {
+  let data = handler.export(handler_data)
   mainWindow.webContents.send('file:exported', data)
+})
+
+ipcMain.on('power:off', (event) => {
+  app.quit()
 })
