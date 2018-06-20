@@ -1,4 +1,4 @@
-// ------------------------------------------------------------------------------------ exports
+// -------------------------------------------------------------------- exports
 exports.init = function() {
   let list = document.getElementById('data-list')
   hideElement(list)
@@ -55,7 +55,7 @@ exports.render = function(data) {
  }
 
 
-// ------------------------------------------------------------------------------------ utility
+// -------------------------------------------------------------------- utility
 function hideElement(el) {
   el.classList.add('hide')
 }
@@ -64,7 +64,7 @@ function showElement(el) {
   el.classList.remove('hide')
 }
 
-// ------------------------------------------------------------------------------------ construction
+// --------------------------------------------------------------- construction
 function build(data) {
   let list = document.getElementById('data-list')
   list.classList.add('collapsible', 'expandable')

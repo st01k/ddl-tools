@@ -1,6 +1,6 @@
 const datalist = require('./datalist')
 
-// ------------------------------------------------------------------------------------ exports
+// -------------------------------------------------------------------- exports
 exports.clear = function() {
   document.getElementById('side-bar').innerHTML = ''
 }
@@ -20,7 +20,7 @@ exports.render = function(data) {
   initView()
 }
 
-// ------------------------------------------------------------------------------------ construction
+// --------------------------------------------------------------- construction
 function buildFileInfo(data) {
   let ul = document.createElement('ul')
 
@@ -48,7 +48,7 @@ function buildFileInfo(data) {
 
 function buildPopData(data) {
   let ul = document.createElement('div')
-
+  // TODO: make this dynamic
   let template = 
   `
   <ul class="checkboxes">
@@ -77,7 +77,7 @@ function buildPopData(data) {
   return ul
 }
 
-// ------------------------------------------------------------------------------------ listeners
+// ------------------------------------------------------------------ listeners
 function initView() {
   let checks = document.getElementsByClassName("checkbox")
 
