@@ -13,7 +13,7 @@ app.on('ready', () => {
 
   mainWindow.maximize()
 
-  // const mainMenu = Menu.buildFromTemplate(menuTemplate)
+  const mainMenu = Menu.buildFromTemplate(menuTemplate)
   // Menu.setApplicationMenu(mainMenu)
 })
 
@@ -51,7 +51,10 @@ const menuTemplate = [
     label: 'Debug',
     submenu: [
       {
-        label: 'DevTools'
+        label: 'DevTools',
+        click() {
+          mainWindow.webContents.openDevTools()
+        }
       }
     ]
   }

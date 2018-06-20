@@ -34,12 +34,12 @@ document.getElementById("import-submit").addEventListener("click", (event => {
 
 // export button
 document.getElementById("export-submit").addEventListener("click", (event => {
-  if (!handlerData) {
-    M.toast({ html: 'please import a file first'})
-    return
+  if (handlerData) {
+    ipcRenderer.send('file:export', handlerData)
   }
-  
-  ipcRenderer.send('file:export', handlerData)
+  else {
+    M.toast({ html: 'please import a file first'})
+  }
 }))
 
 document.getElementById("power").addEventListener("click", (event => {  
@@ -58,6 +58,7 @@ ipcRenderer.on('file:imported', (event, data) => {
     sum: data.records.pop(),
     totRecs: data.records.length
   })
+
   datalist.render(data)
 })
 

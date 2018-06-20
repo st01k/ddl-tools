@@ -47,39 +47,30 @@ function buildFileInfo(data) {
 }
 
 function buildPopData(data) {
-  let ul = document.createElement('ul')
+  let ul = document.createElement('div')
 
   let template = 
   `
-    <form action="#" id="form-checkbox">
-      <hr>
-      <ul class="checkboxes">
-        <li>
-          <label for="form-show-hardware">
-            <input id="form-show-hardware" name="form-show-hardware" class="checkbox" type="checkbox" checked/>
-            <span class="ddl-green-text">Show Hardware</span>
-          </label>
-        </li>
-        <li>
-          <label for="form-show-software">
-            <input id="form-show-software" name="form-show-software" class="checkbox" type="checkbox" checked/>
-            <span class="ddl-purple-text">Show Software</span>
-          </label>
-        </li>
-        <li>
-          <label for="form-show-feature">
-            <input id="form-show-feature" name="form-show-feature" class="checkbox" type="checkbox" checked/>
-            <span class="ddl-yellow-text">Show Features</span>
-          </label>
-        </li>
-        <li>
-          <label for="form-show-error">
-            <input id="form-show-error" name="form-show-error" class="checkbox" type="checkbox" checked/>
-            <span class="ddl-red-text">Show Errors</span>
-          </label>
-        </li>
-      </ul>
-    </form>
+  <ul class="checkboxes">
+    <li>
+      <label for="show-hardware">
+        <input id="show-hardware" name="show-hardware" class="checkbox" type="checkbox" checked/>
+        <span class="ddl-green-text">Show Hardware</span>
+      </label>
+    </li>
+    <li>
+      <label for="show-software">
+        <input id="show-software" name="show-software" class="checkbox" type="checkbox" checked/>
+        <span class="ddl-purple-text">Show Software</span>
+      </label>
+    </li>
+    <li>
+      <label for="show-feature">
+        <input id="show-feature" name="show-feature" class="checkbox" type="checkbox" checked/>
+        <span class="ddl-yellow-text">Show Features</span>
+      </label>
+    </li>
+  </ul>
   `
 
   ul.innerHTML = template
@@ -94,18 +85,22 @@ function initView() {
   for (let check of checks) {
     check.onchange = function() {
 
-      let boxClass = event.target.id.split('-').pop()
+      let targetClass = event.target.id.split('-').pop()
 
-      lis = document.getElementsByClassName(boxClass)
+      lis = document.getElementsByClassName(targetClass)
       if (check.checked) {
-        for (let li of lis) li.classList.remove('hide')
+        for (let li of lis) {
+          li.classList.remove('hide')
+        }
       }
       else {
-        for (let li of lis) li.classList.add('hide')
+        for (let li of lis) {
+          li.classList.add('hide')
+        }
       }
 
       if (dataListIsHidden()) {
-        datalist.hideWithMsg('no data')
+        datalist.hideWithMsg()
       }
     }
   }
@@ -115,8 +110,7 @@ function dataListIsHidden() {
 
   let list = document.getElementById('data-list').children
   for (let item of list[0].childNodes) {
-    if (item.classList.contains('hide')) continue
-    else return false
+    if (!item.classList.contains('hide')) return false
   }
   return true  
 }
