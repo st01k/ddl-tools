@@ -13,6 +13,10 @@ document.addEventListener('DOMContentLoaded', function() {
   var instances = M.Modal.init(elems);
 });
 
+document.getElementById('pdf').addEventListener('click', (event => {
+  ipcRenderer.send('pdf:open')
+}))
+
 // reload button
 document.getElementById('reload').addEventListener('click', (event => {
   clearContent()

@@ -74,6 +74,11 @@ ipcMain.on('file:export', (event, handler_data) => {
   mainWindow.webContents.send('file:exported', path)
 })
 
+ipcMain.on('pdf:open', (event) => {
+  let success = electron.shell.openItem('./static/assets/JCI DDL Manual.pdf')
+  console.log(success)
+})
+
 ipcMain.on('file:show', (event, path) => {
   electron.shell.showItemInFolder(path)
 })
