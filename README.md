@@ -16,3 +16,5 @@ npm install
 # Run the app
 npm start
 ```
+
+## NOTE: This app has not been tested on Windows or Mac platforms.
