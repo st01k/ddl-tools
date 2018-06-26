@@ -395,7 +395,7 @@ function parse(records) {
       cnt++
       
       let line = 
-        `${cnt}|${r.keyword}|${r.network}|${r.id}|${r.name}|${r.description}`
+        `${cnt}|${r.keyword}|${r.network}|${r.name}|${r.description}`
         // `${r.keyword}|${r.network}|${r.id}|${r.name}|${r.description}`
       if (subs !== '') line += `|${subs}`
       line += `\n`
