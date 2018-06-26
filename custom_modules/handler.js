@@ -23,9 +23,32 @@ module.exports = {
   // returns the name of the exported file
   // file exports to directory of imported file
   export: function() {
+    // let pathAry = this.path.split('/')
+    // let filename = pathAry.pop().split('.')[0] + '.csv'
+    // let saveFile = pathAry.join('/') + '/' + filename
+
+    // let parsedData = parse(this.records)
+
+    // fse.writeFile(saveFile, parsedData, function(err) {
+    //   if(err) return console.log(err)
+    //   console.log(`exported file saved to ${saveFile}`)
+    // });
+
+    // return saveFile
+
+    
+
     let pathAry = this.path.split('/')
-    let filename = pathAry.pop().split('.')[0] + '.csv'
-    let saveFile = pathAry.join('/') + '/' + filename
+    let prefix = pathAry.pop().split('.')[0]
+    
+    let saveDir = pathAry.join('/') + '/' + prefix
+    let filename = prefix + '.csv'
+
+    let saveFile = saveDir + '/' + filename
+
+    if (!fse.existsSync(saveDir)) {
+      fse.mkdirSync(saveDir)
+    }    
 
     let parsedData = parse(this.records)
 
