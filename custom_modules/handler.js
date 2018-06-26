@@ -36,27 +36,46 @@ module.exports = {
 
     // return saveFile
 
-    
-
     let pathAry = this.path.split('/')
     let prefix = pathAry.pop().split('.')[0]
-    
     let saveDir = pathAry.join('/') + '/' + prefix
     let filename = prefix + '.csv'
-
     let saveFile = saveDir + '/' + filename
 
     if (!fse.existsSync(saveDir)) {
       fse.mkdirSync(saveDir)
-    }    
+    }
 
     let parsedData = parse(this.records)
 
     fse.writeFile(saveFile, parsedData, function(err) {
       if(err) return console.log(err)
-      console.log(`exported file saved to ${saveFile}`)
     });
 
+    let keywordArr = []
+    for (let rec of this.records) {
+      let kw = rec.keyword
+      if (kw !== undefined) keywordArr.push(kw)
+    }
+    let keywordSet = new Set(keywordArr)
+
+    for (let el of keywordSet) {
+      let holder = []
+      for (let rec of this.records) {
+        let kw = rec.keyword
+        if (kw === el) {
+          holder.push(rec)
+        }
+      }
+
+      parsedData = parse(holder)
+      filename = `${prefix}-${el}.csv`
+      saveFile = `${saveDir}/${filename}`
+
+      fse.writeFile(saveFile, parsedData, function(err) {
+        if(err) return console.log(err)
+      });
+    }
     return saveFile
   }
 }
@@ -383,7 +402,7 @@ function parse(records) {
   
   // remove trailing comma and new line
   data = data.trim().substring(0, data.length - 2)
-  console.log(data)
+  // console.log(data)
   return data
 }
 
