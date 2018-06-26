@@ -327,8 +327,7 @@ function searchKeywords(s) {
 function parse(records) {
   // return JSON.stringify(records)
   let cnt = 0
-  let data
-  console.log(records)
+  let data = ''
 
   for (let r of records) {
     if (r.type === 'hardware' || r.type === 'software') {
@@ -352,7 +351,7 @@ function parse(records) {
     }
   }
 
-  console.log(data)
+  // console.log(data)
   return data
 }
 
