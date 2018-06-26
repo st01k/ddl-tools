@@ -325,7 +325,6 @@ function searchKeywords(s) {
 
 // converts file json data into .csv format
 function parse(records) {
-  // return JSON.stringify(records)
   let cnt = 0
   let data = ''
 
@@ -353,7 +352,8 @@ function parse(records) {
       data += line
     }
   }
-
+  
+  data = data.trim().substring(0, data.length - 2)
   console.log(data)
   return data
 }
