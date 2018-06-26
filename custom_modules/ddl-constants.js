@@ -1,21 +1,22 @@
 module.exports = {
   TYPES: ['empty', 'header', 'summary', 'error', 'record'],
+  
   KEYWORDS: {
     NET: [
-      {NET: 'Defines a network accessible from this Operator Workstation and adds its name to the network map.'},
-      {PORT: 'Configures one of the ports on this Operator Workstation.'}
+      {NET: 'Defines a network accessible from this Operator Workstation and adds its name to the network map.', type: 'placebolder'},
+      {PORT: 'Configures one of the ports on this Operator Workstation.', type: 'placebolder'}
     ],
     GLOBAL: [
-      {DEFDES: 'Default device'},
-      {GRP: 'PC group and its parent'},
-      {NC: 'Defines an NCM'},
-      {PC: 'Operator Workstation, either N1-direct, NC-dial, or NC-direct'},
-      {PTR: 'Printer, either PC-direct, NC-direct, or NC-dial'},
-      {RPT: 'COS (Change-of-State) report group and its targets'},
-      {SYS: 'System name and optionally assigns it to a PC group'}
+      {DEFDES: 'Default device', type: 'placebolder'},
+      {GRP: 'PC group and its parent', type: 'placebolder'},
+      {NC: 'Defines an NCM', type: 'placebolder'},
+      {PC: 'Operator Workstation, either N1-direct, NC-dial, or NC-direct', type: 'placebolder'},
+      {PTR: 'Printer, either PC-direct, NC-direct, or NC-dial', type: 'placebolder'},
+      {RPT: 'COS (Change-of-State) report group and its targets', type: 'placebolder'},
+      {SYS: 'System name and optionally assigns it to a PC group', type: 'placebolder'}
     ],
     MODEL: [
-      {CSMODEL: 'Defines a software model.'}
+      {CSMODEL: 'Defines a software model.', type: 'placebolder'}
     ],
     NC: [
       {ACM: 'Accumulator', type: 'software'},

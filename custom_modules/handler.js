@@ -296,6 +296,24 @@ function sanitize(s) {
 }
 
 function searchKeywords(s) {
+  for (let el of KEYWORDS.NET) {
+    let keys = Object.keys(el)
+    if (keys[0] === s) {
+      return el
+    }
+  }
+  for (let el of KEYWORDS.GLOBAL) {
+    let keys = Object.keys(el)
+    if (keys[0] === s) {
+      return el
+    }
+  }
+  for (let el of KEYWORDS.MODEL) {
+    let keys = Object.keys(el)
+    if (keys[0] === s) {
+      return el
+    }
+  }
   for (let el of KEYWORDS.NC) {
     let keys = Object.keys(el)
     if (keys[0] === s) {
