@@ -329,10 +329,13 @@ function parse(records) {
   let data = ''
 
   for (let r of records) {
+    if (r.type === 'header') {
+      data += `@${r.fileType}|${r.networkName}|${r.ncmName}|,\n`
+    }
+
     if (r.type === 'hardware' || r.type === 'software') {
       let subs = ''
       if (r.subKeywords.length > 0) {
-        console.log('in here')
         for (let subKeyword of r.subKeywords) {
           let sub = `${subKeyword.keyword}|`
 
@@ -345,10 +348,12 @@ function parse(records) {
       }
 
       cnt++
+      
       let line = 
         `${cnt}|${r.keyword}|${r.network}|${r.id}|${r.name}|${r.description}`
       if (subs !== '') line += `|${subs}`
       line += `,\n`
+
       data += line
     }
   }
