@@ -23,18 +23,6 @@ module.exports = {
   // returns the name of the exported file
   // file exports to directory of imported file
   export: function() {
-    // let pathAry = this.path.split('/')
-    // let filename = pathAry.pop().split('.')[0] + '.csv'
-    // let saveFile = pathAry.join('/') + '/' + filename
-
-    // let parsedData = parse(this.records)
-
-    // fse.writeFile(saveFile, parsedData, function(err) {
-    //   if(err) return console.log(err)
-    //   console.log(`exported file saved to ${saveFile}`)
-    // });
-
-    // return saveFile
 
     let pathAry = this.path.split('/')
     let prefix = pathAry.pop().split('.')[0]
@@ -53,17 +41,30 @@ module.exports = {
     });
 
     let keywordArr = []
+    let errors = []
     for (let rec of this.records) {
       let kw = rec.keyword
       if (kw !== undefined) keywordArr.push(kw)
+      if (rec.errors && rec.errors.length > 0) {
+        for (let error of rec.errors) {
+          errors.push(rec)
+        }
+      }
     }
+
+    parsedData = parse(errors)
+    filename = `${prefix}-errors.csv`
+    saveFile = `${saveDir}/${filename}`
+    fse.writeFile(saveFile, parsedData, function(err) {
+      if(err) return console.log(err)
+    });
+
     let keywordSet = new Set(keywordArr)
 
     for (let el of keywordSet) {
       let holder = []
       for (let rec of this.records) {
-        let kw = rec.keyword
-        if (kw === el) {
+        if (rec.keyword === el) {
           holder.push(rec)
         }
       }
