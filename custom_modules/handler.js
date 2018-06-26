@@ -332,20 +332,24 @@ function parse(records) {
   for (let r of records) {
     if (r.type === 'hardware' || r.type === 'software') {
       let subs = ''
-      for (let subKeyword of r.subKeywords) {
-        // console.log(subKeyword)
-        
-        let sub = `${subKeyword.keyword}|`
-        for (let param of subKeyword.params) {
-          let val = (param !== '') ? param : 'null'
-          sub += `${val}|`
+      if (r.subKeywords.length > 0) {
+        console.log('in here')
+        for (let subKeyword of r.subKeywords) {
+          let sub = `${subKeyword.keyword}|`
+
+          for (let param of subKeyword.params) {
+            let val = (param !== '') ? param : 'null'
+            sub += `${val}|`
+          }
+          subs += `${sub}`
         }
-        subs += `${sub}`
       }
 
       cnt++
       let line = 
-        `${cnt}|${r.keyword}|${r.network}|${r.id}|${r.name}|${r.description}|${subs},\n`
+        `${cnt}|${r.keyword}|${r.network}|${r.id}|${r.name}|${r.description}`
+      if (subs !== '') line += `|${subs}`
+      line += `,\n`
       data += line
     }
   }
