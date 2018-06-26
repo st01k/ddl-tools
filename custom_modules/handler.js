@@ -340,7 +340,7 @@ function parse(records) {
           let val = (param !== '') ? param : 'null'
           sub += `${val}|`
         }
-        subs += `${sub}|`
+        subs += `${sub}`
       }
 
       cnt++
@@ -351,7 +351,7 @@ function parse(records) {
     }
   }
 
-  // console.log(data)
+  console.log(data)
   return data
 }
 
