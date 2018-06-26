@@ -358,6 +358,7 @@ function parse(records) {
     }
   }
   
+  // remove trailing comma and new line
   data = data.trim().substring(0, data.length - 2)
   console.log(data)
   return data
