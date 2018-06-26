@@ -325,7 +325,35 @@ function searchKeywords(s) {
 
 // converts file json data into .csv format
 function parse(records) {
-  return JSON.stringify(records)
+  // return JSON.stringify(records)
+  let cnt = 0
+  let data
+  console.log(records)
+
+  for (let r of records) {
+    if (r.type === 'hardware' || r.type === 'software') {
+      let subs = ''
+      for (let subKeyword of r.subKeywords) {
+        // console.log(subKeyword)
+        
+        let sub = `${subKeyword.keyword}|`
+        for (let param of subKeyword.params) {
+          let val = (param !== '') ? param : 'null'
+          sub += `${val}|`
+        }
+        subs += `${sub}|`
+      }
+
+      cnt++
+      let line = 
+        `${cnt}|${r.keyword}|${r.network}|${r.id}|${r.name}|${r.description}|${subs},
+        `
+      data += line
+    }
+  }
+
+  console.log(data)
+  return data
 }
 
 // regex - everything in double quotes including quotes
