@@ -20,16 +20,16 @@ module.exports = {
     return this
   },
 
-  // returns the name of the exported file
-  // file exports to directory of imported file
+  // files export to a created directory inside the source directory
   export: function() {
 
     let pathAry = this.path.split('/')
     let prefix = pathAry.pop().split('.')[0]
     let saveDir = pathAry.join('/') + '/' + prefix
-    let filename = prefix + '.csv'
-    let saveFile = saveDir + '/' + filename
+    let filename = `${prefix}-all.csv`
+    let saveFile = `${saveDir}/${filename}`
 
+    // create all file
     if (!fse.existsSync(saveDir)) {
       fse.mkdirSync(saveDir)
     }
@@ -52,6 +52,7 @@ module.exports = {
       }
     }
 
+    // create error file
     parsedData = parse(errors)
     filename = `${prefix}-errors.csv`
     saveFile = `${saveDir}/${filename}`
@@ -73,6 +74,7 @@ module.exports = {
       filename = `${prefix}-${el}.csv`
       saveFile = `${saveDir}/${filename}`
 
+      // create keyword file
       fse.writeFile(saveFile, parsedData, function(err) {
         if(err) return console.log(err)
       });
@@ -376,7 +378,7 @@ function parse(records) {
       data += `@${r.fileType}|${r.networkName}|${r.ncmName}|,\n`
     }
 
-    if (r.type === 'hardware' || r.type === 'software') {
+    if (r.type === 'hardware' || r.type === 'software' || r.type === 'feature') {
       let subs = ''
       if (r.subKeywords.length > 0) {
         for (let subKeyword of r.subKeywords) {
@@ -394,6 +396,7 @@ function parse(records) {
       
       let line = 
         `${cnt}|${r.keyword}|${r.network}|${r.id}|${r.name}|${r.description}`
+        // `${r.keyword}|${r.network}|${r.id}|${r.name}|${r.description}`
       if (subs !== '') line += `|${subs}`
       line += `,\n`
 
@@ -403,7 +406,7 @@ function parse(records) {
   
   // remove trailing comma and new line
   data = data.trim().substring(0, data.length - 2)
-  // console.log(data)
+
   return data
 }
 

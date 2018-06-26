@@ -71,8 +71,8 @@ ipcRenderer.on('file:exported', (event, path) => {
   let filename = path.split('/').pop()
   var toastHTML = 
   `
-  <span>success</span>
-  <button id="show-file" class="btn-flat toast-action">SHOW FILES</button>
+  <span>exported</span>
+  <button id="show-file" class="btn-flat toast-action">OPEN</button>
   `
   
   M.toast({html: toastHTML});
