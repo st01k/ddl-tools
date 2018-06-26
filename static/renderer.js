@@ -30,7 +30,7 @@ document.getElementById("import-submit").addEventListener("click", (event => {
   if (!path) return
 
   clearContent()
-  M.toast({ html: 'importing data'})
+  M.toast({ html: '<span>importing data</span>'})
 
   setTimeout(() => {
     ipcRenderer.send('file:import', path)

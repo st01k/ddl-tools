@@ -26,7 +26,7 @@ module.exports = {
     let pathAry = this.path.split('/')
     let prefix = pathAry.pop().split('.')[0]
     let saveDir = pathAry.join('/') + '/' + prefix
-    let filename = `${prefix}-all.csv`
+    let filename = `${prefix}-all.psv`
     let saveFile = `${saveDir}/${filename}`
 
     // create all file
@@ -54,7 +54,7 @@ module.exports = {
 
     // create error file
     parsedData = parse(errors)
-    filename = `${prefix}-errors.csv`
+    filename = `${prefix}-errors.psv`
     saveFile = `${saveDir}/${filename}`
     fse.writeFile(saveFile, parsedData, function(err) {
       if(err) return console.log(err)
@@ -71,7 +71,7 @@ module.exports = {
       }
 
       parsedData = parse(holder)
-      filename = `${prefix}-${el}.csv`
+      filename = `${prefix}-${el}.psv`
       saveFile = `${saveDir}/${filename}`
 
       // create keyword file
@@ -368,7 +368,7 @@ function searchKeywords(s) {
   return null
 }
 
-// converts file json data into .csv format
+// converts file json data into .psv format
 function parse(records) {
   let cnt = 0
   let data = ''
@@ -398,14 +398,14 @@ function parse(records) {
         `${cnt}|${r.keyword}|${r.network}|${r.id}|${r.name}|${r.description}`
         // `${r.keyword}|${r.network}|${r.id}|${r.name}|${r.description}`
       if (subs !== '') line += `|${subs}`
-      line += `,\n`
+      line += `\n`
 
       data += line
     }
   }
   
   // remove trailing comma and new line
-  data = data.trim().substring(0, data.length - 2)
+  data = data.trim().substring(0, data.length - 1)
 
   return data
 }
