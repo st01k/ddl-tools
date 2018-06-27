@@ -81,7 +81,7 @@ function build(data) {
 function buildListItem(r) {
   let li = document.createElement('li')
   li.id = `ddl-rec-${r.id}`
-  li.classList.add(r.type)
+  li.classList.add(r.type, r.keyword)
 
   if (r.errors.length > 0) li.classList.add('error')
 

@@ -9,6 +9,8 @@ module.exports = {
   path: '',
   raw_data: '',
   records: [],
+  keywords:[],
+
 
   // returns handler object with data
   import: function(path) {
@@ -17,6 +19,13 @@ module.exports = {
     this.raw_data = fse.readFileSync(path, 'utf8') || ''
     this.records = extract(this.raw_data)
 
+    let keywordSet = new Set()
+    for (let rec of this.records) {
+      let kw = rec.keyword
+      if (kw !== undefined) keywordSet.add(kw)
+    }
+    // this.keywordSet = new Set(keywordArr)
+    this.keywords = Array.from(keywordSet)
     return this
   },
 
@@ -40,11 +49,8 @@ module.exports = {
       if(err) return console.log(err)
     });
 
-    let keywordArr = []
     let errors = []
     for (let rec of this.records) {
-      let kw = rec.keyword
-      if (kw !== undefined) keywordArr.push(kw)
       if (rec.errors && rec.errors.length > 0) {
         for (let error of rec.errors) {
           errors.push(rec)
@@ -60,9 +66,7 @@ module.exports = {
       if(err) return console.log(err)
     });
 
-    let keywordSet = new Set(keywordArr)
-
-    for (let el of keywordSet) {
+    for (let el of this.keywordSet) {
       let holder = []
       for (let rec of this.records) {
         if (rec.keyword === el) {

@@ -56,14 +56,15 @@ datalist.init()
 // -------------------------------------------------------------- IPC listeners
 ipcRenderer.on('file:imported', (event, data) => {
   handlerData = data
-
+  
   sidebar.render({
     path: data.path,
     head: data.records.shift(),
     sum: data.records.pop(),
-    totRecs: data.records.length
+    totRecs: data.records.length,
+    keywords: data.keywords
   })
-
+  
   datalist.render(data)
 })
 

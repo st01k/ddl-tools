@@ -47,40 +47,53 @@ function buildFileInfo(data) {
 }
 
 function buildPopData(data) {
-  let ul = document.createElement('div')
-  // TODO: make this dynamic
-  let template = 
-  `
-  <ul class="checkboxes">
-    <li>
-      <label for="show-hardware">
-        <input id="show-hardware" name="show-hardware" class="checkbox" type="checkbox" checked/>
-        <span class="ddl-green-text">Show Hardware</span>
-      </label>
-    </li>
-    <li>
-      <label for="show-software">
-        <input id="show-software" name="show-software" class="checkbox" type="checkbox" checked/>
-        <span class="ddl-purple-text">Show Software</span>
-      </label>
-    </li>
-    <li>
-      <label for="show-feature">
-        <input id="show-feature" name="show-feature" class="checkbox" type="checkbox" checked/>
-        <span class="ddl-yellow-text">Show Features</span>
-      </label>
-    </li>
-    <li>
-      <label for="show-error">
-        <input id="show-error" name="show-error" class="checkbox" type="checkbox" checked/>
-        <span class="ddl-red-text">Show Errors</span>
-      </label>
-    </li>
-  </ul>
-  `
+  let div = document.createElement('div')
+  let ul = document.createElement('ul')
 
-  ul.innerHTML = template
-  return ul
+  for (let keyword of data.keywords) {
+    let li = document.createElement('li')
+    let template = 
+    `
+    <label for="show-${keyword}">
+      <input id="show-${keyword}" name="show-${keyword}" class="checkbox" type="checkbox" checked />
+      <span class="">Show ${keyword}</span>
+    </label>
+    `
+    li.innerHTML = template
+    ul.appendChild(li)
+  }
+  // let template = 
+  // `
+  // <ul class="checkboxes">
+  //   <li>
+  //     <label for="show-hardware">
+  //       <input id="show-hardware" name="show-hardware" class="checkbox" type="checkbox" checked/>
+  //       <span class="ddl-green-text">Show Hardware</span>
+  //     </label>
+  //   </li>
+  //   <li>
+  //     <label for="show-software">
+  //       <input id="show-software" name="show-software" class="checkbox" type="checkbox" checked/>
+  //       <span class="ddl-purple-text">Show Software</span>
+  //     </label>
+  //   </li>
+  //   <li>
+  //     <label for="show-feature">
+  //       <input id="show-feature" name="show-feature" class="checkbox" type="checkbox" checked/>
+  //       <span class="ddl-yellow-text">Show Features</span>
+  //     </label>
+  //   </li>
+  //   <li>
+  //     <label for="show-error">
+  //       <input id="show-error" name="show-error" class="checkbox" type="checkbox" checked/>
+  //       <span class="ddl-red-text">Show Errors</span>
+  //     </label>
+  //   </li>
+  // </ul>
+  // `
+
+  div.appendChild(ul)
+  return div
 }
 
 // ------------------------------------------------------------------ listeners
