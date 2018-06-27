@@ -22,10 +22,12 @@ module.exports = {
     let keywordSet = new Set()
     for (let rec of this.records) {
       let kw = rec.keyword
-      if (kw !== undefined) keywordSet.add(kw)
+      if (kw !== undefined) {
+        keywordSet.add(kw)
+      }
     }
-    // this.keywordSet = new Set(keywordArr)
     this.keywords = Array.from(keywordSet)
+
     return this
   },
 

@@ -56,7 +56,7 @@ datalist.init()
 // -------------------------------------------------------------- IPC listeners
 ipcRenderer.on('file:imported', (event, data) => {
   handlerData = data
-  
+
   sidebar.render({
     path: data.path,
     head: data.records.shift(),
@@ -69,7 +69,7 @@ ipcRenderer.on('file:imported', (event, data) => {
 })
 
 ipcRenderer.on('file:exported', (event, path) => {
-  let filename = path.split('/').pop()
+  // let filename = path.split('/').pop()
   var toastHTML = 
   `
   <span>exported</span>

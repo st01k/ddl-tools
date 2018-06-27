@@ -62,35 +62,6 @@ function buildPopData(data) {
     li.innerHTML = template
     ul.appendChild(li)
   }
-  // let template = 
-  // `
-  // <ul class="checkboxes">
-  //   <li>
-  //     <label for="show-hardware">
-  //       <input id="show-hardware" name="show-hardware" class="checkbox" type="checkbox" checked/>
-  //       <span class="ddl-green-text">Show Hardware</span>
-  //     </label>
-  //   </li>
-  //   <li>
-  //     <label for="show-software">
-  //       <input id="show-software" name="show-software" class="checkbox" type="checkbox" checked/>
-  //       <span class="ddl-purple-text">Show Software</span>
-  //     </label>
-  //   </li>
-  //   <li>
-  //     <label for="show-feature">
-  //       <input id="show-feature" name="show-feature" class="checkbox" type="checkbox" checked/>
-  //       <span class="ddl-yellow-text">Show Features</span>
-  //     </label>
-  //   </li>
-  //   <li>
-  //     <label for="show-error">
-  //       <input id="show-error" name="show-error" class="checkbox" type="checkbox" checked/>
-  //       <span class="ddl-red-text">Show Errors</span>
-  //     </label>
-  //   </li>
-  // </ul>
-  // `
 
   div.appendChild(ul)
   return div
