@@ -40,6 +40,7 @@ function buildFileInfo(data) {
     <li>
       <p>${data.head.ncmName}</p>
     </li>
+    <hr>
   `
 
   ul.innerHTML = template
@@ -64,9 +65,9 @@ function buildPopData(data) {
     <div>
       <label for="show-${keyword}">
         <input id="show-${keyword}" name="show-${keyword}" class="checkbox" type="checkbox" checked />
-        <span class="">Show ${keyword}</span>
+        <span class="">${keyword}</span>
       </label>
-      <span id="total" class="new badge ddl-blue" data-badge-caption="">
+      <span class="new badge ddl-blue" data-badge-caption="">
         ${count}
       </span>
     </div>
