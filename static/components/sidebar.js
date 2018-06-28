@@ -70,11 +70,16 @@ function buildPopData(data) {
 
   for (let keyword of data.keywords) {
     let count
+    let tooltip
     let color = 'ddl-blue'
 
     for (let kw of data.counts) {
       if (kw.keyword === keyword) {
         count = kw.count
+
+        let tooltipkw = ddlConsts.searchKeywords(kw.keyword)
+        tooltip = tooltipkw[kw.keyword]
+
         if (kw.errors) {
           color = bgColorSwitch('error')
         }
@@ -84,12 +89,16 @@ function buildPopData(data) {
     }
 
     let li = document.createElement('li')
+    li.classList.add('tooltipped')
+    li.setAttribute('data-position', 'right')
+    li.setAttribute('data-tooltip', tooltip)
+
     let template = 
     `
     <div>
       <label for="show-${keyword}">
         <input id="show-${keyword}" name="show-${keyword}" class="checkbox" type="checkbox" checked />
-        <span class="">${keyword}</span>
+        <span>Show ${keyword}</span>
       </label>
       <span class="new badge ${color}" data-badge-caption="">
         ${count}
@@ -135,6 +144,9 @@ function initView() {
       }
     }
   }
+
+  var elems = document.querySelectorAll('.tooltipped');
+  var instances = M.Tooltip.init(elems);
 }
 
 function bgColorSwitch(kw) {
