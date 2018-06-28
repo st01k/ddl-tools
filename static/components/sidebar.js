@@ -9,11 +9,14 @@ exports.clear = function() {
 exports.render = function(data) {
   let sidebar = document.getElementById('side-bar')
 
+  let pd = buildPopData(data)
+  let fi = buildFileInfo(data)  
+
   let fileInfo = document.createElement('div')
-  fileInfo.appendChild(buildFileInfo(data))
+  fileInfo.appendChild(fi)
 
   let popData = document.createElement('div')
-  popData.appendChild(buildPopData(data))
+  popData.appendChild(pd)
 
   sidebar.appendChild(fileInfo)
   sidebar.appendChild(popData)
@@ -22,6 +25,8 @@ exports.render = function(data) {
 }
 
 // --------------------------------------------------------------- construction
+let errCount = 0
+
 function buildFileInfo(data) {
   let ul = document.createElement('ul')
 
@@ -43,7 +48,14 @@ function buildFileInfo(data) {
       </div>
     </li>
     <li>
-      <p>${data.head.ncmName}</p>
+      <div class="row">
+        <div class="col s6"><p>${data.head.ncmName}</p></div>
+        <div class="col s6">
+          <span id="total" class="new badge ddl-red" data-badge-caption="errors">
+            ${errCount}
+          </span>
+        </div>
+      </div>
     </li>
     <hr>
   `
@@ -58,7 +70,6 @@ function buildPopData(data) {
 
   for (let keyword of data.keywords) {
     let count
-    let errCount
     let color = 'ddl-blue'
 
     for (let kw of data.counts) {
@@ -126,7 +137,6 @@ function initView() {
 function bgColorSwitch(kw) {
   if (kw === 'error') return 'ddl-red'
   let type = ddlConsts.searchKeywords(kw).type
-  console.log(type)
   switch(type) {
     case 'hardware':
       return 'ddl-green'
