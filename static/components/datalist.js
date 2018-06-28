@@ -193,7 +193,7 @@ function buildListItemBodyComments(comms) {
   let div = document.createElement('div')
   if (comms.length > 0) {
     let comments = document.createElement('pre')
-    comments.classList.add('col', 's12', 'comment')
+    comments.classList.add('col', 's12', 'well')
 
     let code = document.createElement('code')
     
@@ -212,14 +212,15 @@ function buildListItemBodyComments(comms) {
 
 function buildListItemBodyErrors(errs) {
   let errors = document.createElement('div')
-  errors.classList.add('col', 's9')
-
-  let subkeyword = document.createElement('p')
-  subkeyword.classList.add('ddl-red-text')
-
-  let message = document.createElement('p')
-
+  
   if (errs.length > 0) {
+    errors.classList.add('col', 's12', 'well')
+
+    let subkeyword = document.createElement('p')
+    subkeyword.classList.add('ddl-red-text')
+  
+    let message = document.createElement('p')
+
     for (let err of errs) {
       // syntax
       if (err.subkeyword !== '') {
@@ -232,10 +233,10 @@ function buildListItemBodyErrors(errs) {
         message.innerText = err.msg.trim().substring(10, err.msg.length - 1)
       }
     }
-  }
 
-  errors.appendChild(subkeyword)
-  errors.appendChild(message)
+    errors.appendChild(subkeyword)
+    errors.appendChild(message)
+  }  
 
   return errors
 }
