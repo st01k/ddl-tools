@@ -162,6 +162,9 @@ function initRecord(id, raw) {
     if (i === 0) {
 
       switch(raw[i].charAt(0)) {
+        case '@':
+          record.type = TYPES[1] // header
+          break
         case '*':
           record.type = TYPES[2] // summary
           break
