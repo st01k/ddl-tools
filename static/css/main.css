@@ -141,3 +141,8 @@ nav .nav-wrapper {
 /* .col {
   border: 1px dashed red !important;
 } */
+
+[type="checkbox"]:checked+span:not(.lever):before {
+  border-right: 2px solid #6a98fc;
+  border-bottom: 2px solid #6a98fc;
+}
