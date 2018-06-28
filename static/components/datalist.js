@@ -66,6 +66,25 @@ function showElement(el) {
   el.classList.remove('hide')
 }
 
+function bgColorSwitch(type) {
+  switch(type) {
+    case 'error':
+      return 'ddl-red'
+      break
+    case 'hardware':
+      return 'ddl-green'
+      break
+    case 'software':
+      return 'ddl-purple'
+      break
+    case 'feature':
+      return 'ddl-yellow'
+      break
+    default:
+      return 'ddl-grey'
+      break
+  }
+}
 // --------------------------------------------------------------- construction
 function build(data) {
   let list = document.getElementById('data-list')
@@ -114,26 +133,6 @@ function buildListItemHead(type, kw, net, name, desc, errorsLength) {
   head.classList.add(bgColor, 'collapsible-header', 'white-text', 'center-align', 'valign-wrapper')
   head.innerHTML = template
   return head
-}
-
-function bgColorSwitch(type) {
-  switch(type) {
-    case 'error':
-      return 'ddl-red'
-      break
-    case 'hardware':
-      return 'ddl-green'
-      break
-    case 'software':
-      return 'ddl-purple'
-      break
-    case 'feature':
-      return 'ddl-yellow'
-      break
-    default:
-      return 'ddl-grey'
-      break
-  }
 }
 
 function buildListItemBody(subs, comms, errs) {

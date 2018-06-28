@@ -32,6 +32,7 @@ module.exports = {
     this.counts = []
     for (let k of this.keywords) {
       let cnt = 0
+      let err = false
 
       for (let rec of this.records) {
         let kw = rec.keyword
@@ -39,9 +40,10 @@ module.exports = {
         if (kw !== undefined && kw === k) {
           cnt++
           if (rec.errors.length > 0) errCnt++
+          if (!err) err = (rec.errors.length > 0)
         }
       }
-      this.counts.push({keyword:k, count:cnt})
+      this.counts.push({keyword:k, count:cnt, errors: err})
     }
     this.counts.push({keyword: 'error', count:errCnt})
 

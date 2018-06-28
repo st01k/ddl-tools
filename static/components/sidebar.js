@@ -27,7 +27,11 @@ function buildFileInfo(data) {
   let template = 
   `
     <li>
-      <p class="sub-text ddl-light-grey-text">${data.path}</p>
+      <p>Source File Path</p>
+      <span class="sub-text ddl-light-grey-text">${data.path}</span>
+      <hr>
+    </li>
+    <li>      
       <div class="row">
         <div class="col s6"><h6>${data.head.networkName}</h6></div>
         <div class="col s6">
@@ -54,8 +58,16 @@ function buildPopData(data) {
   for (let keyword of data.keywords) {
     let count
     let errCount
+    let color = 'ddl-blue'
+
     for (let kw of data.counts) {
-      if (kw.keyword === keyword) count = kw.count
+      if (kw.keyword === keyword) {
+        count = kw.count
+        if (kw.errors) {
+          color = bgColorSwitch('error')
+        }
+        else color = bgColorSwitch(kw)
+      }
       if (kw.keyword === 'error') errCount = kw.count
     }
 
@@ -67,7 +79,7 @@ function buildPopData(data) {
         <input id="show-${keyword}" name="show-${keyword}" class="checkbox" type="checkbox" checked />
         <span class="">${keyword}</span>
       </label>
-      <span class="new badge ddl-blue" data-badge-caption="">
+      <span class="new badge ${color}" data-badge-caption="">
         ${count}
       </span>
     </div>
@@ -103,18 +115,39 @@ function initView() {
       }
 
       // if all are unchecked
-      if (dataListIsHidden()) {
-        datalist.hideWithMsg()
-      }
+      // if (dataListIsHidden()) {
+      //   datalist.hideWithMsg()
+      // }
     }
+  }
+}
+
+function bgColorSwitch(type) {
+  switch(type) {
+    case 'error':
+      return 'ddl-red'
+      break
+    case 'hardware':
+      return 'ddl-green'
+      break
+    case 'software':
+      return 'ddl-purple'
+      break
+    case 'feature':
+      return 'ddl-yellow'
+      break
+    default:
+      return 'ddl-grey'
+      break
   }
 }
 
 function dataListIsHidden() {
 
-  let list = document.getElementById('data-list').children
-  for (let item of list[0].childNodes) {
-    if (!item.classList.contains('hide')) return false
+  let checks = document.getElementsByClassName("checkbox")
+
+  for (let check of checks) {
+    if (check.checked) return false
   }
-  return true  
+  return true
 }
