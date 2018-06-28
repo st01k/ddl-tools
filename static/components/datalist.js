@@ -83,7 +83,7 @@ function bgColorSwitch(type) {
       return 'ddl-yellow'
       break
     default:
-      return 'ddl-grey'
+      return 'ddl-light-grey'
       break
   }
 }
