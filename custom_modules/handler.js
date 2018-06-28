@@ -9,7 +9,7 @@ module.exports = {
   path: '',
   raw_data: '',
   records: [],
-  keywords:[],
+  keywords: [],
 
 
   // returns handler object with data
@@ -27,6 +27,23 @@ module.exports = {
       }
     }
     this.keywords = Array.from(keywordSet)
+
+    let errCnt = 0
+    this.counts = []
+    for (let k of this.keywords) {
+      let cnt = 0
+
+      for (let rec of this.records) {
+        let kw = rec.keyword
+
+        if (kw !== undefined && kw === k) {
+          cnt++
+          if (rec.errors.length > 0) errCnt++
+        }
+      }
+      this.counts.push({keyword:k, count:cnt})
+    }
+    this.counts.push({keyword: 'error', count:errCnt})
 
     return this
   },

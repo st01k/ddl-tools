@@ -51,13 +51,25 @@ function buildPopData(data) {
   let ul = document.createElement('ul')
 
   for (let keyword of data.keywords) {
+    let count
+    let errCount
+    for (let kw of data.counts) {
+      if (kw.keyword === keyword) count = kw.count
+      if (kw.keyword === 'error') errCount = kw.count
+    }
+
     let li = document.createElement('li')
     let template = 
     `
-    <label for="show-${keyword}">
-      <input id="show-${keyword}" name="show-${keyword}" class="checkbox" type="checkbox" checked />
-      <span class="">Show ${keyword}</span>
-    </label>
+    <div>
+      <label for="show-${keyword}">
+        <input id="show-${keyword}" name="show-${keyword}" class="checkbox" type="checkbox" checked />
+        <span class="">Show ${keyword}</span>
+      </label>
+      <span id="total" class="new badge ddl-blue" data-badge-caption="">
+        ${count}
+      </span>
+    </div>
     `
     li.innerHTML = template
     ul.appendChild(li)
@@ -89,6 +101,7 @@ function initView() {
         }
       }
 
+      // if all are unchecked
       if (dataListIsHidden()) {
         datalist.hideWithMsg()
       }

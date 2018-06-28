@@ -62,7 +62,8 @@ ipcRenderer.on('file:imported', (event, data) => {
     head: data.records.shift(),
     sum: data.records.pop(),
     totRecs: data.records.length,
-    keywords: data.keywords
+    keywords: data.keywords,
+    counts: data.counts
   })
   
   datalist.render(data)
