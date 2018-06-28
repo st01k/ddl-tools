@@ -318,7 +318,7 @@ function handleRecord(data) {
       let temp = dataAry[0].split(' ')
 
       recData.keyword = temp[0]
-      recData.type = searchKeywords(recData.keyword).type
+      recData.type = ddlConsts.searchKeywords(recData.keyword).type
       recData.network = sanitize(temp[1])
       recData.name = sanitize(dataAry[1])
       recData.description = sanitize(dataAry[2])
