@@ -24,12 +24,14 @@ exports.clear = function() {
 }
 
 exports.hideWithMsg = function(msg) {
-  let _msg = msg || 'no data'
+  let _msg = msg
   
   let list = document.getElementById('data-list')
   hideElement(list)
 
-  document.getElementById('empty-list').innerText = _msg  
+  let emptyMsg = document.getElementById('empty-list')
+  emptyMsg.innerText = _msg
+  showElement(emptyMsg)
 }
 
 exports.show = function() {

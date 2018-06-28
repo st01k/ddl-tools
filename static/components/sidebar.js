@@ -127,9 +127,12 @@ function initView() {
       }
 
       // if all are unchecked
-      // if (dataListIsHidden()) {
-      //   datalist.hideWithMsg()
-      // }
+      if (dataListIsHidden()) {
+        datalist.hideWithMsg('no data')
+      }
+      else {
+        datalist.show()
+      }
     }
   }
 }
