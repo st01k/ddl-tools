@@ -87,7 +87,7 @@ module.exports = {
       if(err) return console.log(err)
     });
 
-    for (let el of this.keywordSet) {
+    for (let el of this.keywords) {
       let holder = []
       for (let rec of this.records) {
         if (rec.keyword === el) {
@@ -363,34 +363,6 @@ function handleRecord(data) {
 function sanitize(s) {
   if (s) return s.replace(/\"/g, '').replace(/\r/g, '').trim()
   return ''
-}
-
-function searchKeywords(s) {
-  for (let el of KEYWORDS.NET) {
-    let keys = Object.keys(el)
-    if (keys[0] === s) {
-      return el
-    }
-  }
-  for (let el of KEYWORDS.GLOBAL) {
-    let keys = Object.keys(el)
-    if (keys[0] === s) {
-      return el
-    }
-  }
-  for (let el of KEYWORDS.MODEL) {
-    let keys = Object.keys(el)
-    if (keys[0] === s) {
-      return el
-    }
-  }
-  for (let el of KEYWORDS.NC) {
-    let keys = Object.keys(el)
-    if (keys[0] === s) {
-      return el
-    }
-  }
-  return null
 }
 
 // converts file json data into .psv format
