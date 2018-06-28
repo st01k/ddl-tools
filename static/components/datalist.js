@@ -1,4 +1,4 @@
-cnt = 0
+let cnt = 0
 
 // -------------------------------------------------------------------- exports
 exports.init = function() {
@@ -128,8 +128,8 @@ function buildListItemHead(type, kw, net, name, desc, errorsLength) {
       <span class="badge new left ddl-transparent" data-badge-caption="">${++cnt}</span>
     </div>
     <div class="col s2">${kw}</div>
-    <div class="col s2">${net}</div>
-    <div class="col s2">${name}</div>
+    <div class="col s3">${net}</div>
+    <div class="col s3">${name}</div>
     <div class="col s4">${desc}</div>
   `
   head.classList.add(bgColor, 'collapsible-header', 'white-text', 'center-align', 'valign-wrapper')
@@ -190,22 +190,24 @@ function buildListItemBodyData(subs) {
 }
 
 function buildListItemBodyComments(comms) {
-  let comments = document.createElement('pre')
-  comments.classList.add('col', 's12')
-
-  let code = document.createElement('code')
-  
-  let template = ''
-
+  let div = document.createElement('div')
   if (comms.length > 0) {
+    let comments = document.createElement('pre')
+    comments.classList.add('col', 's12', 'comment')
+
+    let code = document.createElement('code')
+    
+    let template = ''
+
     for (let line of comms) {
       template += `${line}`
     }
+    
+    code.innerText = template
+    comments.appendChild(code)
+    div.appendChild(comments)
   }
-  
-  code.innerText = template
-  comments.appendChild(code)
-  return comments
+  return div
 }
 
 function buildListItemBodyErrors(errs) {
@@ -222,12 +224,12 @@ function buildListItemBodyErrors(errs) {
       // syntax
       if (err.subkeyword !== '') {
         subkeyword.innerText = `ERROR IN ${err.subkeyword}`
-        message.innerText = err.msg.substring(1, err.msg.length - 1)
+        message.innerText = err.msg.trim().substring(1, err.msg.length - 1)
       }
       // semantic
       else {
         subkeyword.innerText = 'ERROR IN OBJECT'
-        message.innerText = err.msg.substring(10, err.msg.length - 1)
+        message.innerText = err.msg.trim().substring(10, err.msg.length - 1)
       }
     }
   }

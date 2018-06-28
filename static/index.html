@@ -66,11 +66,19 @@
   <div id="modal-docs" class="modal grey darken-4">
     <div class="modal-content">
       <h2 class="center-align">ddl-tools</h2>
-      <h6 class="center-align">alpha v0.9</h6>
+      <h6 class="center-align">prototype v0.9</h6>
       <hr>
       
-      <p>Designed and developed by Casey J. Murphy, with contributions of domain-specific expertise from Daniel J. Murphy</p>
-      <p><code>ddl-tools</code> provides a way to view imported .ddl/.und files in an efficiently organized manner thus expediting the troubleshooting process.  Additionally, any imported .ddl/.und file can be exported as an itemized set of spreadsheet-importable .PSV files.</p>
+      <p>Designed and developed by Casey J. Murphy with contributions of domain-specific expertise from Daniel J. Murphy</p>
+      <p><code>ddl-tools</code> provides a way to view imported .ddl/.und files in an efficient and organized manner thus expediting the troubleshooting process.  
+        The export functionality parses the imported file into a series of pipe-separated-value (.psv) files:</p>
+
+      <ul>
+        <li>one file with all records in the original file</li>
+        <li>one file per keyword used within the source file</li>
+        <li>one file with all keywords that had an error attached to it</li>
+      </ul>
+
       <p>The <a id="pdf" href="#!">DDL Programmer's Manual</a> was used for technical references throughout the development of this application.</p>
     </div>
     <div class="modal-footer grey darken-4">

@@ -2,7 +2,6 @@ const fse = require('fs-extra')
 const ddlConsts = require('./ddl-constants')
 
 let TYPES = ddlConsts.TYPES
-let KEYWORDS = ddlConsts.KEYWORDS
 
 module.exports = {
   file: '',
