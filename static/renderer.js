@@ -7,6 +7,13 @@ const sidebar = require('./components/sidebar')
 let handlerData
 
 // ------------------------------------------------------------------- listeners
+// nav
+document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('.sidenav');
+  console.log('elems: ' + elems)
+  var instances = M.Sidenav.init(elems);
+});
+
 // modals
 document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.modal');
