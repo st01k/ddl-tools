@@ -7,10 +7,9 @@ const sidebar = require('./components/sidebar')
 let handlerData
 
 // ------------------------------------------------------------------- listeners
-// nav
+// small geometry (mobile) side nav
 document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.sidenav');
-  console.log('elems: ' + elems)
   var instances = M.Sidenav.init(elems);
 });
 
@@ -23,6 +22,12 @@ document.addEventListener('DOMContentLoaded', function() {
 // pdf link
 document.getElementById('pdf').addEventListener('click', (event => {
   ipcRenderer.send('pdf:open')
+}))
+
+// repo link
+document.getElementById('git-repo').addEventListener('click', (event => {
+  event.preventDefault()
+  require('electron').shell.openExternal('https://github.com/st01k/ddl-tools')
 }))
 
 // reload button
