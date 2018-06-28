@@ -61,8 +61,8 @@ module.exports = {
       {TIMEZONE: 'TIMEZONE Access', type: 'feature'},
       {XM: 'Point multiplex module', type: 'hardware'},
       {ZONE: 'ZONE for a FIRE controller', type: 'software'}
-    ]
-  }
+    ],
+  },
 // const SUBKEYWORDS = {
 //   pointtype,
 //   pointstr,
@@ -82,4 +82,31 @@ module.exports = {
 //   address,
 //   associnp
 // }
+  searchKeywords: function(s) {
+    for (let el of this.KEYWORDS.NET) {
+      let keys = Object.keys(el)
+      if (keys[0] === s) {
+        return el
+      }
+    }
+    for (let el of this.KEYWORDS.GLOBAL) {
+      let keys = Object.keys(el)
+      if (keys[0] === s) {
+        return el
+      }
+    }
+    for (let el of this.KEYWORDS.MODEL) {
+      let keys = Object.keys(el)
+      if (keys[0] === s) {
+        return el
+      }
+    }
+    for (let el of this.KEYWORDS.NC) {
+      let keys = Object.keys(el)
+      if (keys[0] === s) {
+        return el
+      }
+    }
+    return null
+  }
 }

@@ -1,4 +1,5 @@
 const datalist = require('./datalist')
+const ddlConsts = require('../../custom_modules/ddl-constants')
 
 // -------------------------------------------------------------------- exports
 exports.clear = function() {
@@ -66,7 +67,7 @@ function buildPopData(data) {
         if (kw.errors) {
           color = bgColorSwitch('error')
         }
-        else color = bgColorSwitch(kw)
+        else color = bgColorSwitch(kw.keyword)
       }
       if (kw.keyword === 'error') errCount = kw.count
     }
@@ -122,11 +123,11 @@ function initView() {
   }
 }
 
-function bgColorSwitch(type) {
+function bgColorSwitch(kw) {
+  if (kw === 'error') return 'ddl-red'
+  let type = ddlConsts.searchKeywords(kw).type
+  console.log(type)
   switch(type) {
-    case 'error':
-      return 'ddl-red'
-      break
     case 'hardware':
       return 'ddl-green'
       break
