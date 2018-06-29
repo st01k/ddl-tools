@@ -7,7 +7,10 @@ body {
 }
 
 hr {
-  border-color: #49494F;
+  /* border-color: #49494F; */
+  height: 10px;
+	border: 0;
+	box-shadow: 0 10px 10px -10px #49494F inset;
 }
 
 .sidenav-overlay {
