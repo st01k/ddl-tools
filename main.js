@@ -75,8 +75,7 @@ ipcMain.on('file:export', (event, handler_data) => {
 })
 
 ipcMain.on('pdf:open', (event) => {
-  let success = electron.shell.openItem('./static/assets/JCI DDL Manual.pdf')
-  console.log(success)
+  electron.shell.openItem('./static/assets/JCI DDL Manual.pdf')
 })
 
 ipcMain.on('file:show', (event, path) => {
