@@ -79,12 +79,14 @@ module.exports = {
     }
 
     // create error file
-    parsedData = parse(errors)
-    filename = `${prefix}-errors.psv`
-    saveFile = `${saveDir}/${filename}`
-    fse.writeFile(saveFile, parsedData, function(err) {
-      if(err) return console.log(err)
-    });
+    if (errors.length > 0) {
+      parsedData = parse(errors)
+      filename = `${prefix}-errors.psv`
+      saveFile = `${saveDir}/${filename}`
+      fse.writeFile(saveFile, parsedData, function(err) {
+        if(err) return console.log(err)
+      });
+    }
 
     for (let el of this.keywords) {
       let holder = []
