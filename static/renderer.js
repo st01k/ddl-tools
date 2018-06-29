@@ -70,6 +70,10 @@ datalist.init()
 
 // -------------------------------------------------------------- IPC listeners
 ipcRenderer.on('file:imported', (event, data) => {
+  if (!data) {
+    M.toast({ html: 'importing non-NC typed files is not yet supported'})
+    return
+  }
   handlerData = data
 
   sidebar.render({

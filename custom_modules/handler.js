@@ -1,3 +1,5 @@
+const electron = require('electron')
+
 const fse = require('fs-extra')
 const ddlConsts = require('./ddl-constants')
 
@@ -17,6 +19,11 @@ module.exports = {
     this.path = path
     this.raw_data = fse.readFileSync(path, 'utf8') || ''
     this.records = extract(this.raw_data)
+
+    if (this.records === null) {
+      console.log("can't handle this type of file yet")
+      return null
+    }
 
     let keywordSet = new Set()
     for (let rec of this.records) {
@@ -123,6 +130,10 @@ function extract(raw) {
       rec = buildRecord(rec)
 
       if (rec) {
+        if (rec.fileType !== 'NC') {
+          return null
+        }
+
         // push error to previous record's errors
         if (rec.type === 'error') {
           let prevRecord = records.pop()
@@ -253,7 +264,8 @@ function handleHeader(data) {
       header.networkName = sanitize(temp[1])
       header.ncmName = sanitize(dataAry[1])
     }
-  }
+  }  
+
   return header
 }
 
