@@ -33,6 +33,10 @@ code {
   margin-top: 15px;
 }
 
+li.tooltipped:hover span {
+  color: whitesmoke !important;
+}
+
 .sub-text {
   font-size: .75em;
 }
