@@ -20,8 +20,8 @@ module.exports = {
     this.raw_data = fse.readFileSync(path, 'utf8') || ''
     this.records = extract(this.raw_data)
 
+    // catch non-NC filetypes until implemented
     if (this.records === null) {
-      console.log("can't handle this type of file yet")
       return null
     }
 
@@ -130,6 +130,7 @@ function extract(raw) {
       rec = buildRecord(rec)
 
       if (rec) {
+        // handle non-NC type files until implemented
         if (rec.fileType !== 'NC') {
           return null
         }
