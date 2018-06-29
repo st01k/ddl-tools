@@ -161,7 +161,7 @@ function buildListItemBodyData(subs) {
 
     for (let sub of subs) {
       let li = document.createElement('li')
-      li.innerText = `${sub.keyword}: `
+      li.innerHTML = `<span class="subkeyword-datalist">${sub.keyword}:</span>`
 
       // reverse params for right float
       let revParams = []

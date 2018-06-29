@@ -94,6 +94,10 @@ nav .nav-wrapper {
   margin-right: 2px;
 }
 
+.subkeyword-datalist {
+  padding-right: 10px;
+}
+
 .ddl-blue {
   background-color: #6a98fc !important;
 }
