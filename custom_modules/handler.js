@@ -131,7 +131,7 @@ function extract(raw) {
 
       if (rec) {
         // handle non-NC type files until implemented
-        if (rec.fileType !== 'NC') {
+        if (rec.fileType && rec.fileType !== 'NC') {
           return null
         }
 
