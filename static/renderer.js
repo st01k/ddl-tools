@@ -45,7 +45,10 @@ document.getElementById("import-submit").addEventListener("click", (event => {
   if (!path) return
 
   clearContent()
-  M.toast({ html: '<span>importing data</span>', displayLength: 1500})
+  M.toast({ 
+    html: '<span>importing data</span>', 
+    displayLength: 1500
+  })
 
   setTimeout(() => {
     ipcRenderer.send('file:import', path)
@@ -71,7 +74,10 @@ datalist.init()
 // -------------------------------------------------------------- IPC listeners
 ipcRenderer.on('file:imported', (event, data) => {
   if (!data) {
-    M.toast({ html: 'importing non-NC typed files is not yet supported', displayLength: 5000})
+    M.toast({ 
+      html: 'importing non-NC typed files is not yet supported', 
+      displayLength: 5000
+    })
     return
   }
   handlerData = data
