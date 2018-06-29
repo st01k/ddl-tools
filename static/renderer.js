@@ -9,8 +9,11 @@ let handlerData
 // ------------------------------------------------------------------- listeners
 // small geometry (mobile) side nav
 document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.sidenav');
-  var instances = M.Sidenav.init(elems);
+  let elems = document.querySelectorAll('.sidenav');
+  let options = {
+    edge: 'right'
+  }
+  let instances = M.Sidenav.init(elems, options);
 });
 
 // modals

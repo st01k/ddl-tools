@@ -10,6 +10,23 @@ hr {
   border-color: #49494F;
 }
 
+.sidenav-overlay {
+  margin-right:300px;
+}
+
+.sidenav {
+  background-color: #2f2f33;
+}
+
+.sidenav li>a {
+  color: whitesmoke;
+  text-align: center;
+}
+.sidenav li>a:hover {
+  color: #64b5f6;
+  background-color: rgba(0,0,0,0.2);
+}
+
 .modal:focus {
   outline-color: #64b5f6;
 }
