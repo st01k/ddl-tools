@@ -10,64 +10,63 @@ let handlerData
 // small geometry (mobile) side nav
 document.addEventListener('DOMContentLoaded', function() {
   let elems = document.querySelectorAll('.sidenav');
-  let options = {
-    edge: 'right'
-  }
+  let options = { edge: 'right' }
   let instances = M.Sidenav.init(elems, options);
+
+  elems = document.querySelectorAll('.modal');
+  intances = M.Modal.init(elems);
+
+  clickListeners()
 });
 
-// modals
-document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.modal');
-  var instances = M.Modal.init(elems);
-});
+function clickListeners() {
+  // pdf link
+  document.getElementById('pdf').addEventListener('click', (event => {
+    ipcRenderer.send('pdf:open')
+  }))
 
-// pdf link
-document.getElementById('pdf').addEventListener('click', (event => {
-  ipcRenderer.send('pdf:open')
-}))
+  // repo link
+  document.getElementById('git-repo').addEventListener('click', (event => {
+    event.preventDefault()
+    require('electron').shell.openExternal('https://github.com/st01k/ddl-tools')
+  }))
 
-// repo link
-document.getElementById('git-repo').addEventListener('click', (event => {
-  event.preventDefault()
-  require('electron').shell.openExternal('https://github.com/st01k/ddl-tools')
-}))
+  // reload button
+  document.getElementById('reload').addEventListener('click', (event => {
+    clearContent()
+  }))
 
-// reload button
-document.getElementById('reload').addEventListener('click', (event => {
-  clearContent()
-}))
+  // import inside modal - submit
+  document.getElementById("import-submit").addEventListener("click", (event => {
+    const { path } = document.getElementById('form-import-file').files[0]
+    
+    if (!path) return
 
-// import inside modal - submit
-document.getElementById("import-submit").addEventListener("click", (event => {
-  const { path } = document.getElementById('form-import-file').files[0]
-  
-  if (!path) return
+    clearContent()
+    M.toast({ 
+      html: '<span>importing data</span>', 
+      displayLength: 1500
+    })
 
-  clearContent()
-  M.toast({ 
-    html: '<span>importing data</span>', 
-    displayLength: 1500
-  })
+    setTimeout(() => {
+      ipcRenderer.send('file:import', path)
+    }, 1250)
+  }))
 
-  setTimeout(() => {
-    ipcRenderer.send('file:import', path)
-  }, 1250)
-}))
+  // export button
+  document.getElementById("export-submit").addEventListener("click", (event => {
+    if (handlerData) {
+      ipcRenderer.send('file:export', handlerData)
+    }
+    else {
+      M.toast({ html: 'please import a file first'})
+    }
+  }))
 
-// export button
-document.getElementById("export-submit").addEventListener("click", (event => {
-  if (handlerData) {
-    ipcRenderer.send('file:export', handlerData)
-  }
-  else {
-    M.toast({ html: 'please import a file first'})
-  }
-}))
-
-document.getElementById("power").addEventListener("click", (event => {  
-  ipcRenderer.send('power:off')
-}))
+  document.getElementById("power").addEventListener("click", (event => {  
+    ipcRenderer.send('power:off')
+  }))
+}
 
 datalist.init()
 

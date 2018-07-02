@@ -1,6 +1,6 @@
 # ddl-tools
 
-This is an electron application used to handle .ddl and .und files for presentation and export.
+This is an electron application used to handle DDL config files for Johnson Controls Metasys hardware. It extracts data needed for Osprey's N1 collection from the source file, presents it in an organized and searchable manner, and exports it to a pre-defined format that might be used for import into Osprey.
 
 ## To Use
 
