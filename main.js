@@ -14,7 +14,7 @@ app.on('ready', () => {
   mainWindow.maximize()
 
   const mainMenu = Menu.buildFromTemplate(menuTemplate)
-  Menu.setApplicationMenu(mainMenu)
+  // Menu.setApplicationMenu(mainMenu)
 })
 
 app.on('window-all-closed', function () {
@@ -34,30 +34,30 @@ app.on('activate', function () {
 })
 
 const menuTemplate = [
-  // {
-  //   label: 'File',
-  //   submenu: [
-  //     {label: 'Import DDL'},
-  //     {
-  //       label: 'Quit',
-  //       accelerator: process.platform === 'darwin' ? 'Command+Q' : 'Ctrl+Q',
-  //       click() {
-  //         app.quit()
-  //       }
-  //     }
-  //   ]
-  // },
-  // {
-  //   label: 'Debug',
-  //   submenu: [
-  //     {
-  //       label: 'DevTools',
-  //       click() {
-  //         mainWindow.webContents.openDevTools()
-  //       }
-  //     }
-  //   ]
-  // }
+  {
+    label: 'File',
+    submenu: [
+      {label: 'Import DDL'},
+      {
+        label: 'Quit',
+        accelerator: process.platform === 'darwin' ? 'Command+Q' : 'Ctrl+Q',
+        click() {
+          app.quit()
+        }
+      }
+    ]
+  },
+  {
+    label: 'Debug',
+    submenu: [
+      {
+        label: 'DevTools',
+        click() {
+          mainWindow.webContents.openDevTools()
+        }
+      }
+    ]
+  }
 ]
 
 if (process.platform === 'darwin') {
