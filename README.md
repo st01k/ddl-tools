@@ -18,4 +18,4 @@ npm start
 ```
 
 ## NOTE: 
-This app has not been tested on and will currently not work on Windows or Mac platforms.
+This app has not been tested on and will currently not work on Windows.
