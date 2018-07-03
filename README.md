@@ -17,5 +17,7 @@ npm install
 npm start
 ```
 
+### Test DDL files are located in static/assets
+
 ## NOTE: 
 This app has not been tested on and will currently not work on Windows.
