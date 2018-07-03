@@ -147,6 +147,11 @@ function initView() {
 
   var elems = document.querySelectorAll('.tooltipped');
   var instances = M.Tooltip.init(elems);
+
+  let tts = document.getElementsByClassName('material-tooltip')
+    for (let tt of tts) {
+      tt.classList.add()
+    }
 }
 
 function bgColorSwitch(kw) {
