@@ -17,4 +17,5 @@ npm install
 npm start
 ```
 
-## NOTE: This app has not been tested on Windows or Mac platforms.
+## NOTE: 
+This app has not been tested on and will currently not work on Windows or Mac platforms.
