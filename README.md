@@ -20,4 +20,4 @@ npm start
 ### Test DDL files are located in static/assets
 
 ## NOTE: 
-This app has not been tested on and will currently not work on Windows.
+This app has not been tested on and will not currently work on Windows.  It may work on Mac.  It was developed and tested on Linux.
