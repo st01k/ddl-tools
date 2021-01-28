@@ -12,7 +12,7 @@
   "author": "Casey J. Murphy",
   "license": "ISC",
   "dependencies": {
-    "electron": "^2.0.15",
+    "electron": "^9.4.0",
     "fs-extra": "^6.0.1",
     "materialize-css": "^1.0.0"
   }
